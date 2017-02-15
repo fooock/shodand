@@ -6,6 +6,7 @@ ext {
 
     // Android libraries versions
     appCompatVersion = "25.1.1"
+    timberVersion = "4.5.1"
 
     // Testing libraries versions
     junitVersion = "4.12"
@@ -13,7 +14,8 @@ ext {
     mockitoVersion = "2.7.6"
 
     appLibraries = [
-            supportAppCompat: "com.android.support:appcompat-v7:${appCompatVersion}"
+            supportAppCompat: "com.android.support:appcompat-v7:${appCompatVersion}",
+            timber          : "com.jakewharton.timber:timber:${timberVersion}"
     ]
 
     appTest = [

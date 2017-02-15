@@ -1,8 +1,11 @@
-package shodand.app.fooock.com.shodand;
+package com.fooock.app.shodand;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+/**
+ *
+ */
 public class ShodandMainActivity extends AppCompatActivity {
 
     @Override

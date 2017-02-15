@@ -4,7 +4,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        applicationId "shodand.app.fooock.com.shodand"
+        applicationId "com.fooock.app.shodand"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -38,4 +38,5 @@ dependencies {
     testCompile rootProject.ext.appTest.mockito
 
     compile rootProject.ext.appLibraries.supportAppCompat
+    compile rootProject.ext.appLibraries.timber
 }
