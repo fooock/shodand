@@ -1,0 +1,24 @@
+ext {
+    minSdkVersion = 15
+    compileSdkVersion = 25
+    targetSdkVersion = 25
+    buildToolsVersion = "25.0.2"
+
+    // Android libraries versions
+    appCompatVersion = "25.1.1"
+
+    // Testing libraries versions
+    junitVersion = "4.12"
+    espressoVersion = "2.2.2"
+    mockitoVersion = "2.7.6"
+
+    appLibraries = [
+            supportAppCompat: "com.android.support:appcompat-v7:${appCompatVersion}"
+    ]
+
+    appTest = [
+            junit   : "junit:junit:${junitVersion}",
+            espresso: "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            mockito : "org.mockito:mockito-core:${mockitoVersion}"
+    ]
+}
