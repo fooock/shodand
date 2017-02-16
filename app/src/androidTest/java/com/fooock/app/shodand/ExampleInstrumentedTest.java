@@ -1,4 +1,4 @@
-package shodand.app.fooock.com.shodand;
+package com.fooock.app.shodand;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

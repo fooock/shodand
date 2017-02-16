@@ -1,4 +1,4 @@
-package shodand.app.fooock.com.shodand;
+package com.fooock.app.shodand;
 
 import org.junit.Test;
 
