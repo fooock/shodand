@@ -15,7 +15,6 @@ public class ShodandMainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shodand_main);
-        ButterKnife.bind(this);
 
         Timber.d("In onCreate()");
     }
@@ -23,5 +22,7 @@ public class ShodandMainActivity extends BaseActivity {
     @Override
     void initializeComponents(@NonNull ShodandApplication application) {
         Timber.d("Initializing components...");
+
+        ButterKnife.bind(this);
     }
 }
