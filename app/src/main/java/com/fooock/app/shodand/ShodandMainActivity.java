@@ -1,7 +1,7 @@
 package com.fooock.app.shodand;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -9,7 +9,7 @@ import timber.log.Timber;
 /**
  *
  */
-public class ShodandMainActivity extends AppCompatActivity {
+public class ShodandMainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +18,10 @@ public class ShodandMainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Timber.d("In onCreate()");
+    }
+
+    @Override
+    void initializeComponents(@NonNull ShodandApplication application) {
+        Timber.d("Initializing components...");
     }
 }
