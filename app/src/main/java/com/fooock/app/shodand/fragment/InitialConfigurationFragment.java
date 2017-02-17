@@ -63,7 +63,7 @@ public class InitialConfigurationFragment extends BaseFragment {
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment fragment = new IntroduceKeyFragment();
-        transaction.replace(R.id.activity_container, fragment);
+        transaction.replace(R.id.activity_configuration_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

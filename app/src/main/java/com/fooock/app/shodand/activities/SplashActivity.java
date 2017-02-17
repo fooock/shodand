@@ -1,10 +1,13 @@
-package com.fooock.app.shodand;
+package com.fooock.app.shodand.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.fooock.app.shodand.R;
+import com.fooock.app.shodand.ShodandApplication;
 
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -30,7 +33,7 @@ public class SplashActivity extends BaseActivity {
             public void run() {
                 Timber.d("Starting ShodandMainActivity...");
 
-                Intent mainActivity = new Intent(SplashActivity.this, ShodandMainActivity.class);
+                Intent mainActivity = new Intent(SplashActivity.this, ConfigurationActivity.class);
                 startActivity(mainActivity);
 
                 finish();
