@@ -2,4 +2,15 @@
     <string name="app_name">Shodand</string>
     <string name="btn_scan_qr_code">Scan QR code</string>
     <string name="btn_introduce_key_manually">Introduce manually</string>
+
+    <string name="title_introduce_key_fragment">Your Shodan API key</string>
+    <string name="txt_introduce_api_key">Introduce here your API key</string>
+    <string name="txt_description_api_key">Copy and paste here your API key or use the button to paste directly the content of your clipboard.</string>
+    <string name="hint_paste_api_key">Paste here your API key</string>
+    <string name="btn_continue_with_api_key">Continue</string>
+    <string name="txt_validate_api_key">Validating…</string>
+    <string name="txt_first_step">First step!</string>
+    <string name="txt_introduction_firs_step">Choose a method to setup your Shodan API key. If you do not have an account yet, create one at</string>
+    <string name="title_configure_account">Configure your account</string>
+    <string name="txt_shodan_web">https://account.shodan.io/register</string>
 </resources>

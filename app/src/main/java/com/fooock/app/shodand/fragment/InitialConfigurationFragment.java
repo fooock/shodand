@@ -1,5 +1,7 @@
 package com.fooock.app.shodand.fragment;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -41,6 +43,8 @@ public class InitialConfigurationFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Timber.d("Fragment view created");
+
+        setTitle(R.string.title_configure_account);
     }
 
     @Override
@@ -56,5 +60,11 @@ public class InitialConfigurationFragment extends BaseFragment {
     @OnClick(R.id.btn_introduce_key_manually)
     public void onClickOnIntroduceManually() {
         Timber.d("Click on introduce key manually");
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment fragment = new IntroduceKeyFragment();
+        transaction.replace(R.id.activity_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

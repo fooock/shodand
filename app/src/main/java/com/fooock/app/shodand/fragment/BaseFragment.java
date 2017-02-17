@@ -2,6 +2,9 @@ package com.fooock.app.shodand.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.support.annotation.StringRes;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 
 import com.fooock.app.shodand.ShodandApplication;
 
@@ -18,6 +21,44 @@ abstract class BaseFragment extends Fragment {
         Timber.d("Fragment attached...");
 
         initializeComponents(getShodandApplication());
+    }
+
+    /**
+     * Hide the action bar
+     */
+    protected void hideActionBar() {
+        ActionBar actionBar = ((AppCompatActivity) getActivity())
+                .getSupportActionBar();
+        if (actionBar == null) {
+            return;
+        }
+        actionBar.hide();
+    }
+
+    /**
+     * Show the action bar
+     */
+    protected void showActionBar() {
+        ActionBar actionBar = ((AppCompatActivity) getActivity())
+                .getSupportActionBar();
+        if (actionBar == null) {
+            return;
+        }
+        actionBar.show();
+    }
+
+    /**
+     * Change the title of the activity where this fragment is attached
+     *
+     * @param title string resource
+     */
+    protected void setTitle(@StringRes int title) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity())
+                .getSupportActionBar();
+        if (actionBar == null) {
+            return;
+        }
+        actionBar.setTitle(title);
     }
 
     /**
