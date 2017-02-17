@@ -31,7 +31,7 @@ public class SplashActivity extends BaseActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Timber.d("Starting ShodandMainActivity...");
+                Timber.d("Starting ConfigurationActivity...");
 
                 Intent mainActivity = new Intent(SplashActivity.this, ConfigurationActivity.class);
                 startActivity(mainActivity);

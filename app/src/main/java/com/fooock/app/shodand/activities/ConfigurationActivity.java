@@ -1,17 +1,22 @@
 package com.fooock.app.shodand.activities;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 import com.fooock.app.shodand.fragment.InitialConfigurationFragment;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import butterknife.ButterKnife;
 import timber.log.Timber;
+
+import static com.fooock.app.shodand.fragment.InitialConfigurationFragment.CAMERA_REQUEST_CODE;
 
 public class ConfigurationActivity extends BaseActivity {
 
@@ -35,4 +40,34 @@ public class ConfigurationActivity extends BaseActivity {
 
         ButterKnife.bind(this);
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Timber.d("Checking permission result...");
+
+        if (permissions.length == 0) {
+            Timber.d("No permissions granted...");
+            return;
+        }
+        if (requestCode != CAMERA_REQUEST_CODE) {
+            Timber.d("Nothing to do, returning...");
+            return;
+        }
+        for (int i = 0; i < permissions.length; i++) {
+            if (Manifest.permission.CAMERA.equals(permissions[i])
+                    && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                Timber.d("Permission granted, starting camera...");
+
+                IntentIntegrator integrator = new IntentIntegrator(this);
+                integrator.setBeepEnabled(false).initiateScan();
+
+                break;
+            }
+        }
+    }
+
 }

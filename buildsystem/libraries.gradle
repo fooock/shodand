@@ -9,6 +9,8 @@ ext {
     timberVersion = "4.5.1"
     butterknifeVersion = "8.5.1"
     butterknifeProcessorVersion = "8.5.1"
+    zxingVersion = "3.3.0"
+    zxingAndroidVersion = "3.4.0"
 
     // Testing libraries versions
     junitVersion = "4.12"
@@ -19,7 +21,9 @@ ext {
             supportAppCompat    : "com.android.support:appcompat-v7:${appCompatVersion}",
             timber              : "com.jakewharton.timber:timber:${timberVersion}",
             butterknife         : "com.jakewharton:butterknife:${butterknifeVersion}",
-            butterknifeProcessor: "com.jakewharton:butterknife-compiler:${butterknifeProcessorVersion}"
+            butterknifeProcessor: "com.jakewharton:butterknife-compiler:${butterknifeProcessorVersion}",
+            zxing               : "com.google.zxing:core:${zxingVersion}",
+            zxingAndroid        : "com.journeyapps:zxing-android-embedded:${zxingAndroidVersion}"
     ]
 
     appTest = [

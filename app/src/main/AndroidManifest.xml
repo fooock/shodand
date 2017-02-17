@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.fooock.app.shodand">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:name=".ShodandDefaultApplication"
@@ -26,7 +31,13 @@
         </activity-alias>
 
         <activity android:name=".activities.ShodandMainActivity" />
-        <activity android:name=".activities.ConfigurationActivity"></activity>
+        <activity android:name=".activities.ConfigurationActivity" />
+
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
+
     </application>
 
 </manifest>
