@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Shodand</string>
+    <string name="btn_scan_qr_code">Scan QR code</string>
+    <string name="btn_introduce_key_manually">Introduce manually</string>
 </resources>

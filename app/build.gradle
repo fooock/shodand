@@ -40,4 +40,5 @@ dependencies {
     compile rootProject.ext.appLibraries.supportAppCompat
     compile rootProject.ext.appLibraries.timber
     compile rootProject.ext.appLibraries.butterknife
+    annotationProcessor rootProject.ext.appLibraries.butterknifeProcessor
 }

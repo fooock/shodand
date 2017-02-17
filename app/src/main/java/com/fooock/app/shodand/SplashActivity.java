@@ -14,7 +14,7 @@ import timber.log.Timber;
  */
 public class SplashActivity extends BaseActivity {
 
-    private static final int SPLASH_SCREEN_DELAY = 1500;
+    private static final int SPLASH_SCREEN_DELAY = 1000;
 
     private final Handler handler = new Handler();
 
