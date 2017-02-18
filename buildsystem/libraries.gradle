@@ -18,6 +18,9 @@ ext {
     espressoVersion = "2.2.2"
     mockitoVersion = "2.7.6"
 
+    // java libraries versions
+    rxJavaVersion = "2.0.4"
+
     appLibraries = [
             supportAppCompat    : "com.android.support:appcompat-v7:${appCompatVersion}",
             timber              : "com.jakewharton.timber:timber:${timberVersion}",
@@ -31,6 +34,15 @@ ext {
     appTest = [
             junit   : "junit:junit:${junitVersion}",
             espresso: "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            mockito : "org.mockito:mockito-core:${mockitoVersion}"
+    ]
+
+    domainLibraries = [
+            rxJava: "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+    ]
+
+    domainTest = [
+            junit   : "junit:junit:${junitVersion}",
             mockito : "org.mockito:mockito-core:${mockitoVersion}"
     ]
 }

@@ -37,6 +37,8 @@ dependencies {
     testCompile rootProject.ext.appTest.junit
     testCompile rootProject.ext.appTest.mockito
 
+    compile project(':domain')
+
     compile rootProject.ext.appLibraries.supportAppCompat
     compile rootProject.ext.appLibraries.timber
     compile rootProject.ext.appLibraries.butterknife
