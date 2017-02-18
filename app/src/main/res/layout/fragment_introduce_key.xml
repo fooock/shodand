@@ -24,20 +24,27 @@
         android:gravity="center"
         android:layout_below="@id/txt_title_introduce_api_key" />
 
-    <EditText
-        android:id="@+id/et_input_api_key"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_input_api_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/hint_paste_api_key"
-        android:layout_below="@id/txt_description_api_key" />
+        android:layout_below="@id/txt_description_api_key"
+        android:hint="@string/til_your_api_key">
+
+        <EditText
+            android:id="@+id/et_input_api_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btn_continue_with_api_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_continue_with_api_key"
-        android:layout_below="@id/et_input_api_key" />
+        android:layout_below="@id/til_input_api_key" />
 
     <LinearLayout
         android:id="@+id/layout_loading"
