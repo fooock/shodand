@@ -11,6 +11,7 @@ ext {
     butterknifeProcessorVersion = "8.5.1"
     zxingVersion = "3.3.0"
     zxingAndroidVersion = "3.4.0"
+    androidDesignVersion = "25.1.1"
 
     // Testing libraries versions
     junitVersion = "4.12"
@@ -23,7 +24,8 @@ ext {
             butterknife         : "com.jakewharton:butterknife:${butterknifeVersion}",
             butterknifeProcessor: "com.jakewharton:butterknife-compiler:${butterknifeProcessorVersion}",
             zxing               : "com.google.zxing:core:${zxingVersion}",
-            zxingAndroid        : "com.journeyapps:zxing-android-embedded:${zxingAndroidVersion}"
+            zxingAndroid        : "com.journeyapps:zxing-android-embedded:${zxingAndroidVersion}",
+            androidDesign       : "com.android.support:design:${androidDesignVersion}"
     ]
 
     appTest = [

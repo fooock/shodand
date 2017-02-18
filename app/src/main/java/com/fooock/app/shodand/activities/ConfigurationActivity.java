@@ -57,17 +57,12 @@ public class ConfigurationActivity extends BaseActivity {
             Timber.d("Nothing to do, returning...");
             return;
         }
-        for (int i = 0; i < permissions.length; i++) {
-            if (Manifest.permission.CAMERA.equals(permissions[i])
-                    && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                Timber.d("Permission granted, starting camera...");
+        if (Manifest.permission.CAMERA.equals(permissions[0])
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Timber.d("Permission granted, starting camera...");
 
-                IntentIntegrator integrator = new IntentIntegrator(this);
-                integrator.setBeepEnabled(false).initiateScan();
-
-                break;
-            }
+            IntentIntegrator integrator = new IntentIntegrator(this);
+            integrator.setBeepEnabled(false).initiateScan();
         }
     }
-
 }

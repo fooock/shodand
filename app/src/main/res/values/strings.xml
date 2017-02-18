@@ -13,4 +13,6 @@
     <string name="txt_introduction_firs_step">Choose a method to setup your Shodan API key. If you do not have an account yet, create one at</string>
     <string name="title_configure_account">Configure your account</string>
     <string name="txt_shodan_web">https://account.shodan.io/register</string>
+    <string name="txt_show_rationale_camera">Camera access is needed in order to scan your QR key code.</string>
+    <string name="txt_ok">ok</string>
 </resources>

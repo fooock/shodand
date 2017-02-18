@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,8 @@ public class InitialConfigurationFragment extends BaseFragment {
     @BindView(R.id.btn_introduce_key_manually)
     protected Button btnIntroduceManually;
 
+    private Snackbar rationaleSnackbar;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,26 +68,57 @@ public class InitialConfigurationFragment extends BaseFragment {
     public void onClickOnScanQr() {
         Timber.d("Click on scan QR code");
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Timber.d("Running on android >= 6.0");
-
-            // Request runtime permission
-            if (ActivityCompat.checkSelfPermission(
-                    getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-
-                Timber.d("Camera permission not granted, request it");
-
-                String[] cameraPerm = new String[]{Manifest.permission.CAMERA};
-                ActivityCompat.requestPermissions(
-                        getActivity(), cameraPerm, CAMERA_REQUEST_CODE);
-            } else {
-                Timber.d("Permission granted, starting camera...");
-                startCameraScan();
-            }
-        } else {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             Timber.d("Running on android < 6.0, no need to request permissions");
             startCameraScan();
+            return;
         }
+        Timber.d("Running on android >= 6.0");
+
+        // Request runtime permission
+        if (ActivityCompat.checkSelfPermission(
+                getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            Timber.d("Permission not granted...");
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    getActivity(), Manifest.permission.CAMERA)) {
+                showRationale();
+
+            } else {
+                requestCameraPermission();
+            }
+
+        } else {
+            Timber.d("Permission granted, starting camera...");
+            startCameraScan();
+        }
+    }
+
+    private void showRationale() {
+        View view = getView();
+        if (view == null) {
+            Timber.d("View is null, not show snackbar");
+            return;
+        }
+        Timber.d("Showing rationale...");
+        rationaleSnackbar = Snackbar.make(view, R.string.txt_show_rationale_camera,
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.txt_ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Timber.d("Clicked snackbar to request permission");
+                        requestCameraPermission();
+                    }
+                });
+        rationaleSnackbar.show();
+    }
+
+    private void requestCameraPermission() {
+        Timber.d("Camera permission not granted, request it");
+
+        String[] cameraPerm = new String[]{Manifest.permission.CAMERA};
+        ActivityCompat.requestPermissions(
+                getActivity(), cameraPerm, CAMERA_REQUEST_CODE);
     }
 
     /**
@@ -98,6 +132,9 @@ public class InitialConfigurationFragment extends BaseFragment {
 
     @OnClick(R.id.btn_introduce_key_manually)
     public void onClickOnIntroduceManually() {
+        if (rationaleSnackbar != null && rationaleSnackbar.isShown()) {
+            rationaleSnackbar.dismiss();
+        }
         Timber.d("Click on introduce key manually");
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
