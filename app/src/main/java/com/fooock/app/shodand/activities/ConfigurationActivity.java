@@ -41,7 +41,6 @@ public class ConfigurationActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
