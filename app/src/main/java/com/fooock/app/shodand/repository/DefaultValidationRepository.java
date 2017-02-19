@@ -1,5 +1,6 @@
 package com.fooock.app.shodand.repository;
 
+import com.fooock.shodand.data.AccountDataSource;
 import com.fooock.shodand.data.ValidationDataRepository;
 import com.fooock.shodand.domain.ApiKey;
 import com.fooock.shodand.domain.model.Account;
@@ -12,19 +13,22 @@ import io.reactivex.Observable;
  */
 public class DefaultValidationRepository implements ValidationRepository {
 
-    private static final ValidationRepository INSTANCE = new DefaultValidationRepository();
+    private static ValidationRepository validationRepository;
 
     private final ValidationDataRepository dataRepository;
 
     /**
      * Create the default validation repository
      */
-    private DefaultValidationRepository() {
-        dataRepository = new ValidationDataRepository();
+    private DefaultValidationRepository(AccountDataSource accountDataSource) {
+        dataRepository = new ValidationDataRepository(accountDataSource);
     }
 
-    public static ValidationRepository getInstance() {
-        return INSTANCE;
+    public static synchronized ValidationRepository getInstance(AccountDataSource accountDataSource) {
+        if (validationRepository == null) {
+            validationRepository = new DefaultValidationRepository(accountDataSource);
+        }
+        return validationRepository;
     }
 
     @Override

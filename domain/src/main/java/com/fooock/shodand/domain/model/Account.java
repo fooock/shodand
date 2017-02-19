@@ -32,4 +32,14 @@ public class Account {
     public String getCreated() {
         return created;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "credits=" + credits +
+                ", member=" + member +
+                ", displayName='" + displayName + '\'' +
+                ", created='" + created + '\'' +
+                '}';
+    }
 }
