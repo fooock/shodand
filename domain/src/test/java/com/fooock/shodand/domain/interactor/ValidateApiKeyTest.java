@@ -1,8 +1,9 @@
 package com.fooock.shodand.domain.interactor;
 
+import com.fooock.shodand.domain.ApiKey;
 import com.fooock.shodand.domain.executor.MainThread;
 import com.fooock.shodand.domain.executor.ThreadExecutor;
-import com.fooock.shodand.domain.repository.AccountRepository;
+import com.fooock.shodand.domain.repository.ValidationRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 /**
  *
  */
-public class GetAccountProfileTest {
+public class ValidateApiKeyTest {
 
     @Mock
     private MainThread mainThread;
@@ -24,20 +25,21 @@ public class GetAccountProfileTest {
     private ThreadExecutor threadExecutor;
 
     @Mock
-    private AccountRepository accountRepository;
+    private ValidationRepository validationRepository;
 
-    private GetAccountProfile getAccountProfile;
+    private ValidateApiKey validateApiKey;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        getAccountProfile = new GetAccountProfile(accountRepository, mainThread, threadExecutor);
+        validateApiKey = new ValidateApiKey(validationRepository, mainThread, threadExecutor);
     }
 
     @Test
     public void testCalledRepository() throws Exception {
-        getAccountProfile.result(null);
-        verify(accountRepository).account();
-        verifyNoMoreInteractions(accountRepository);
+        ApiKey apiKey = new ApiKey("1234567890");
+        validateApiKey.result(apiKey);
+        verify(validationRepository).firstInit(apiKey);
+        verifyNoMoreInteractions(validationRepository);
     }
 }

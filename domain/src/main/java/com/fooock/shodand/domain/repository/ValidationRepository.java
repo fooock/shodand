@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 /**
  *
  */
-public interface AccountRepository {
+public interface ValidationRepository {
 
-    Observable<Account> account(ApiKey apiKey);
+    Observable<Account> firstInit(ApiKey apiKey);
 }

@@ -4,9 +4,9 @@ import com.fooock.app.shodand.view.IntroduceKeyView;
 import com.fooock.shodand.domain.ApiKey;
 import com.fooock.shodand.domain.executor.MainThread;
 import com.fooock.shodand.domain.executor.ThreadExecutor;
-import com.fooock.shodand.domain.interactor.GetAccountProfile;
+import com.fooock.shodand.domain.interactor.ValidateApiKey;
 import com.fooock.shodand.domain.model.Account;
-import com.fooock.shodand.domain.repository.AccountRepository;
+import com.fooock.shodand.domain.repository.ValidationRepository;
 
 import io.reactivex.observers.DisposableObserver;
 import timber.log.Timber;
@@ -16,18 +16,18 @@ import timber.log.Timber;
  */
 public class IntroduceKeyPresenter extends BasePresenter<IntroduceKeyView> {
 
-    private final GetAccountProfile getAccountProfile;
+    private final ValidateApiKey validateApiKey;
 
     /**
      * Create this presenter
      *
-     * @param repository     {@link AccountRepository}
+     * @param repository     {@link ValidationRepository}
      * @param mainThread     {@link MainThread}
      * @param threadExecutor {@link ThreadExecutor}
      */
-    public IntroduceKeyPresenter(AccountRepository repository, MainThread mainThread,
+    public IntroduceKeyPresenter(ValidationRepository repository, MainThread mainThread,
                                  ThreadExecutor threadExecutor) {
-        getAccountProfile = new GetAccountProfile(repository, mainThread, threadExecutor);
+        validateApiKey = new ValidateApiKey(repository, mainThread, threadExecutor);
     }
 
     /**
@@ -46,10 +46,11 @@ public class IntroduceKeyPresenter extends BasePresenter<IntroduceKeyView> {
             Timber.d("Empty API key");
             return;
         }
-        getAccountProfile.execute(new DisposableObserver<Account>() {
+        validateApiKey.execute(new DisposableObserver<Account>() {
             @Override
             public void onNext(Account account) {
                 Timber.d("Received account: %s", account);
+                customView.saveValidApiKey(apiKey);
             }
 
             @Override
@@ -75,6 +76,6 @@ public class IntroduceKeyPresenter extends BasePresenter<IntroduceKeyView> {
     @Override
     void release() {
         Timber.d("Closing API key validation...");
-        getAccountProfile.close();
+        validateApiKey.close();
     }
 }

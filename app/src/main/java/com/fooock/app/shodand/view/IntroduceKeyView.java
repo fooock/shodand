@@ -31,4 +31,11 @@ public interface IntroduceKeyView extends BaseView {
      * Called when the API key is empty
      */
     void emptyApiKey();
+
+    /**
+     * Called when the API key is valid and need to save it
+     *
+     * @param apiKey Shodan API key
+     */
+    void saveValidApiKey(String apiKey);
 }

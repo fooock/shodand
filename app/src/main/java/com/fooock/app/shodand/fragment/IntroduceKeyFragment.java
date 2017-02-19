@@ -3,7 +3,9 @@ package com.fooock.app.shodand.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -32,6 +34,8 @@ import timber.log.Timber;
  *
  */
 public class IntroduceKeyFragment extends BaseFragment implements IntroduceKeyView {
+
+    public static final String PREF_API_KEY = "com.fooock.app.shodand.API_KEY";
 
     @BindView(R.id.til_input_api_key)
     protected TextInputLayout tilApiKey;
@@ -96,7 +100,7 @@ public class IntroduceKeyFragment extends BaseFragment implements IntroduceKeyVi
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
         introduceKeyPresenter = new IntroduceKeyPresenter(
-                application.accountRepository(),
+                application.validationRepository(),
                 application.mainThread(),
                 application.threadExecutor());
     }
@@ -158,5 +162,12 @@ public class IntroduceKeyFragment extends BaseFragment implements IntroduceKeyVi
         tilApiKey.setEnabled(true);
         txtErrorValidating.setVisibility(View.VISIBLE);
         txtErrorValidating.setText(R.string.empty_api_key);
+    }
+
+    @Override
+    public void saveValidApiKey(String apiKey) {
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        preferences.edit().putString(PREF_API_KEY, apiKey).apply();
     }
 }

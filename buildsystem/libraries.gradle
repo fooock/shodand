@@ -21,6 +21,7 @@ ext {
 
     // java libraries versions
     rxJavaVersion = "2.0.6"
+    jshodanVersion = "0.4.5"
 
     appLibraries = [
             supportAppCompat    : "com.android.support:appcompat-v7:${appCompatVersion}",
@@ -45,6 +46,16 @@ ext {
     ]
 
     domainTest = [
+            junit  : "junit:junit:${junitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}"
+    ]
+
+    dataLibraries = [
+            rxJava : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            jshodan: "com.fooock:jshodan:${jshodanVersion}"
+    ]
+
+    dataTest = [
             junit   : "junit:junit:${junitVersion}",
             mockito : "org.mockito:mockito-core:${mockitoVersion}"
     ]

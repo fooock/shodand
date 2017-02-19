@@ -38,6 +38,7 @@ dependencies {
     testCompile rootProject.ext.appTest.mockito
 
     compile project(':domain')
+    compile project(':data')
 
     compile rootProject.ext.appLibraries.supportAppCompat
     compile rootProject.ext.appLibraries.timber
