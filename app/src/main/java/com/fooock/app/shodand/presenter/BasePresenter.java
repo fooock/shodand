@@ -14,6 +14,11 @@ public abstract class BasePresenter<T extends BaseView> {
     T customView;
 
     /**
+     * Method to release resources, like opening connections etc
+     */
+    abstract void release();
+
+    /**
      * Attach this presenter to the given view type
      *
      * @param view view
@@ -27,6 +32,7 @@ public abstract class BasePresenter<T extends BaseView> {
      * Detach the presenter view
      */
     public final void detachView() {
+        release();
         customView = null;
         Timber.d("View detached...");
     }
@@ -36,7 +42,7 @@ public abstract class BasePresenter<T extends BaseView> {
      *
      * @return true if attached, false if not
      */
-    protected final boolean isAttached() {
+    final boolean isAttached() {
         return customView != null;
     }
 

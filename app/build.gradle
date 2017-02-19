@@ -45,4 +45,6 @@ dependencies {
     annotationProcessor rootProject.ext.appLibraries.butterknifeProcessor
     compile rootProject.ext.appLibraries.zxingAndroid
     compile rootProject.ext.appLibraries.androidDesign
+    compile rootProject.ext.appLibraries.rxJava
+    compile rootProject.ext.appLibraries.rxJavaAndroid
 }

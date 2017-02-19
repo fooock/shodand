@@ -17,4 +17,5 @@
     <string name="txt_ok">ok</string>
     <string name="til_your_api_key">Your API key</string>
     <string name="mnu_paste">Paste</string>
+    <string name="empty_api_key">API key can\'t be empty</string>
 </resources>

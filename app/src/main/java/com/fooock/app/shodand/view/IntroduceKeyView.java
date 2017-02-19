@@ -26,4 +26,9 @@ public interface IntroduceKeyView extends BaseView {
      * Validation successful, start the main application
      */
     void startApplication();
+
+    /**
+     * Called when the API key is empty
+     */
+    void emptyApiKey();
 }

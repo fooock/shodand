@@ -1,5 +1,6 @@
 package com.fooock.shodand.domain.interactor;
 
+import com.fooock.shodand.domain.ApiKey;
 import com.fooock.shodand.domain.executor.MainThread;
 import com.fooock.shodand.domain.executor.ThreadExecutor;
 import com.fooock.shodand.domain.model.Account;
@@ -10,7 +11,7 @@ import io.reactivex.Observable;
 /**
  * Get the {@link Account} profile from the {@link AccountRepository}
  */
-public class GetAccountProfile extends BaseInteractor<Account, Void> {
+public class GetAccountProfile extends BaseInteractor<Account, ApiKey> {
 
     private final AccountRepository accountRepository;
 
@@ -21,7 +22,7 @@ public class GetAccountProfile extends BaseInteractor<Account, Void> {
     }
 
     @Override
-    protected Observable<Account> result(Void params) {
-        return accountRepository.account();
+    protected Observable<Account> result(ApiKey params) {
+        return accountRepository.account(params);
     }
 }

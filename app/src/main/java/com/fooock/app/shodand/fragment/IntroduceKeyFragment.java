@@ -95,7 +95,10 @@ public class IntroduceKeyFragment extends BaseFragment implements IntroduceKeyVi
     @Override
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
-        introduceKeyPresenter = new IntroduceKeyPresenter();
+        introduceKeyPresenter = new IntroduceKeyPresenter(
+                application.accountRepository(),
+                application.mainThread(),
+                application.threadExecutor());
     }
 
     private void closeKeyboard() {
@@ -147,5 +150,13 @@ public class IntroduceKeyFragment extends BaseFragment implements IntroduceKeyVi
         Intent mainApplication = new Intent(getActivity(), ShodandMainActivity.class);
         mainApplication.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainApplication);
+    }
+
+    @Override
+    public void emptyApiKey() {
+        btnContinue.setEnabled(true);
+        tilApiKey.setEnabled(true);
+        txtErrorValidating.setVisibility(View.VISIBLE);
+        txtErrorValidating.setText(R.string.empty_api_key);
     }
 }
