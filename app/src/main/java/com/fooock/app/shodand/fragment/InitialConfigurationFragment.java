@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -14,9 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
+import com.fooock.app.shodand.activities.ShodandMainActivity;
+import com.fooock.app.shodand.presenter.IntroduceKeyPresenter;
+import com.fooock.app.shodand.view.IntroduceKeyView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -25,10 +32,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
+import static com.fooock.app.shodand.fragment.IntroduceKeyFragment.PREF_API_KEY;
+
 /**
  *
  */
-public class InitialConfigurationFragment extends BaseFragment {
+public class InitialConfigurationFragment extends BaseFragment implements IntroduceKeyView {
 
     public static final int CAMERA_REQUEST_CODE = 981;
 
@@ -38,14 +47,23 @@ public class InitialConfigurationFragment extends BaseFragment {
     @BindView(R.id.btn_introduce_key_manually)
     protected Button btnIntroduceManually;
 
+    @BindView(R.id.layout_loading)
+    protected LinearLayout layoutLoading;
+
+    @BindView(R.id.txt_error_validating_api_key)
+    protected TextView txtErrorValidating;
+
     private Snackbar rationaleSnackbar;
+
+    private IntroduceKeyPresenter introduceKeyPresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_initial_configuration, container, false);
         ButterKnife.bind(this, view);
-
+        // attach the presenter with this view
+        introduceKeyPresenter.attachView(this);
         Timber.d("Creating view...");
 
         return view;
@@ -60,8 +78,18 @@ public class InitialConfigurationFragment extends BaseFragment {
     }
 
     @Override
+    public void onDestroy() {
+        introduceKeyPresenter.detachView();
+        super.onDestroy();
+    }
+
+    @Override
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
+        introduceKeyPresenter = new IntroduceKeyPresenter(
+                application.validationRepository(),
+                application.mainThread(),
+                application.threadExecutor());
     }
 
     @OnClick(R.id.btn_scan_qr_code)
@@ -151,11 +179,55 @@ public class InitialConfigurationFragment extends BaseFragment {
             Timber.d("No result found in activity result");
             return;
         }
-        String contents = result.getContents();
-        if (contents == null || contents.isEmpty()) {
-            Timber.d("No content found for the qr scan");
-            return;
-        }
-        Timber.d("QR content %s", contents);
+        introduceKeyPresenter.validateApiKey(result.getContents());
+    }
+
+    @Override
+    public void showProgress() {
+        btnIntroduceManually.setEnabled(false);
+        btnScanQr.setEnabled(false);
+        layoutLoading.setVisibility(View.VISIBLE);
+        txtErrorValidating.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideProgress() {
+        btnIntroduceManually.setEnabled(false);
+        btnScanQr.setEnabled(false);
+        layoutLoading.setVisibility(View.GONE);
+        txtErrorValidating.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(String message) {
+        btnIntroduceManually.setEnabled(true);
+        btnScanQr.setEnabled(true);
+        layoutLoading.setVisibility(View.GONE);
+        txtErrorValidating.setVisibility(View.VISIBLE);
+        txtErrorValidating.setText(message);
+    }
+
+    @Override
+    public void startApplication() {
+        Timber.d("Starting main application...");
+        Intent mainApplication = new Intent(getActivity(), ShodandMainActivity.class);
+        mainApplication.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainApplication);
+    }
+
+    @Override
+    public void emptyApiKey() {
+        btnIntroduceManually.setEnabled(true);
+        btnScanQr.setEnabled(true);
+        layoutLoading.setVisibility(View.GONE);
+        txtErrorValidating.setVisibility(View.VISIBLE);
+        txtErrorValidating.setText(R.string.empty_api_key);
+    }
+
+    @Override
+    public void saveValidApiKey(String apiKey) {
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        preferences.edit().putString(PREF_API_KEY, apiKey).apply();
     }
 }
