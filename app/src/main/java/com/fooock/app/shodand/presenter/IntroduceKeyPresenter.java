@@ -12,7 +12,9 @@ import io.reactivex.observers.DisposableObserver;
 import timber.log.Timber;
 
 /**
- *
+ * Presenter used to validate API key. Is used in
+ * {@link com.fooock.app.shodand.fragment.InitialConfigurationFragment} and in
+ * {@link com.fooock.app.shodand.fragment.IntroduceKeyFragment}
  */
 public class IntroduceKeyPresenter extends BasePresenter<IntroduceKeyView> {
 

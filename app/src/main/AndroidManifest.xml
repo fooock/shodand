@@ -32,7 +32,10 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name=".activities.ShodandMainActivity" />
+        <activity
+            android:name=".activities.ShodandMainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".activities.ConfigurationActivity" />
 
         <activity

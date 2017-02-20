@@ -1,7 +1,7 @@
 package com.fooock.app.shodand.view;
 
 /**
- * Interface for {@link com.fooock.app.shodand.fragment.IntroduceKeyFragment}
+ * Interface for {@link com.fooock.app.shodand.presenter.IntroduceKeyPresenter}
  */
 public interface IntroduceKeyView extends BaseView {
 
