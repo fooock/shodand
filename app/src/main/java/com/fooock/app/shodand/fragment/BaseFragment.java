@@ -2,6 +2,7 @@ package com.fooock.app.shodand.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +17,9 @@ import timber.log.Timber;
 abstract class BaseFragment extends Fragment {
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Timber.d("Fragment attached...");
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Timber.d("Fragment in onCreate()...");
         initializeComponents(getShodandApplication());
     }
 
