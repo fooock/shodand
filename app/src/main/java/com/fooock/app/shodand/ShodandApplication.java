@@ -18,12 +18,15 @@ import com.fooock.shodand.domain.repository.ValidationRepository;
  */
 public abstract class ShodandApplication extends Application {
 
+    private Navigator navigator;
     private ShodanApis shodanApis;
     private DatabaseHelper databaseHelper;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        navigator = new Navigator(this);
+
         // Create the database helper
         databaseHelper = new DatabaseHelper(this);
 
@@ -34,6 +37,13 @@ public abstract class ShodandApplication extends Application {
      * Custom initialization depending on the build type
      */
     abstract void initialize();
+
+    /**
+     * @return Navigator
+     */
+    public Navigator navigator() {
+        return navigator;
+    }
 
     /**
      * @return Main thread

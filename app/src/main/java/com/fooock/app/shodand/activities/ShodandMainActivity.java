@@ -1,6 +1,5 @@
 package com.fooock.app.shodand.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -72,20 +71,13 @@ public class ShodandMainActivity extends BaseActivity
 
         if (apiKey.isEmpty()) {
             Timber.d("No API key found, opening configuration activity...");
-            startAppConfiguration();
+            application.navigator().showConfigurationActivity();
+
             finish();
         }
         Timber.d("Found API key: %s", apiKey);
 
         application.initializeApiWith(apiKey);
-    }
-
-    /**
-     * Start the {@link ConfigurationActivity}
-     */
-    private void startAppConfiguration() {
-        Intent confActivity = new Intent(this, ConfigurationActivity.class);
-        startActivity(confActivity);
     }
 
     @Override

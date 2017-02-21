@@ -1,6 +1,5 @@
 package com.fooock.app.shodand.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.fooock.app.shodand.Navigator;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 
@@ -25,6 +25,8 @@ public class SplashActivity extends BaseActivity {
 
     private final Handler handler = new Handler();
 
+    private Navigator navigator;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +40,11 @@ public class SplashActivity extends BaseActivity {
 
                 if (isConfigurationValid()) {
                     Timber.d("Starting ConfigurationActivity...");
-                    startAppConfiguration();
+                    navigator.showConfigurationActivity();
 
                 } else {
                     Timber.d("Starting ShodandActivity...");
-                    startMainApplication();
+                    navigator.showShodandActivity();
                 }
 
                 finish();
@@ -50,27 +52,12 @@ public class SplashActivity extends BaseActivity {
         }, SPLASH_SCREEN_DELAY);
     }
 
-    /**
-     * Start the {@link ShodandMainActivity}
-     */
-    private void startMainApplication() {
-        Intent mainActivity = new Intent(this, ShodandMainActivity.class);
-        startActivity(mainActivity);
-    }
-
-    /**
-     * Start the {@link ConfigurationActivity}
-     */
-    private void startAppConfiguration() {
-        Intent confActivity = new Intent(this, ConfigurationActivity.class);
-        startActivity(confActivity);
-    }
-
     @Override
     void initializeComponents(@NonNull ShodandApplication application) {
         Timber.d("Initializing splash screen...");
 
         ButterKnife.bind(this);
+        navigator = application.navigator();
     }
 
     /**

@@ -19,9 +19,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fooock.app.shodand.Navigator;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
-import com.fooock.app.shodand.activities.ShodandMainActivity;
 import com.fooock.app.shodand.presenter.IntroduceKeyPresenter;
 import com.fooock.app.shodand.view.IntroduceKeyView;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -56,6 +56,7 @@ public class InitialConfigurationFragment extends BaseFragment implements Introd
     private Snackbar rationaleSnackbar;
 
     private IntroduceKeyPresenter introduceKeyPresenter;
+    private Navigator navigator;
 
     @Nullable
     @Override
@@ -86,6 +87,7 @@ public class InitialConfigurationFragment extends BaseFragment implements Introd
     @Override
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
+        navigator = application.navigator();
         introduceKeyPresenter = new IntroduceKeyPresenter(
                 application.validationRepository(),
                 application.mainThread(),
@@ -210,9 +212,7 @@ public class InitialConfigurationFragment extends BaseFragment implements Introd
     @Override
     public void startApplication() {
         Timber.d("Starting main application...");
-        Intent mainApplication = new Intent(getActivity(), ShodandMainActivity.class);
-        mainApplication.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainApplication);
+        navigator.showShodandActivity();
     }
 
     @Override

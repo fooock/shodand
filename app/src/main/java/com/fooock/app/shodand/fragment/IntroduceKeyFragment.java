@@ -2,7 +2,6 @@ package com.fooock.app.shodand.fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,9 +18,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fooock.app.shodand.Navigator;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
-import com.fooock.app.shodand.activities.ShodandMainActivity;
 import com.fooock.app.shodand.presenter.IntroduceKeyPresenter;
 import com.fooock.app.shodand.view.IntroduceKeyView;
 
@@ -53,6 +52,7 @@ public class IntroduceKeyFragment extends BaseFragment implements IntroduceKeyVi
     protected TextView txtErrorValidating;
 
     private IntroduceKeyPresenter introduceKeyPresenter;
+    private Navigator navigator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,6 +99,7 @@ public class IntroduceKeyFragment extends BaseFragment implements IntroduceKeyVi
     @Override
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
+        navigator = application.navigator();
         introduceKeyPresenter = new IntroduceKeyPresenter(
                 application.validationRepository(),
                 application.mainThread(),
@@ -151,9 +152,7 @@ public class IntroduceKeyFragment extends BaseFragment implements IntroduceKeyVi
     @Override
     public void startApplication() {
         Timber.d("Starting main application...");
-        Intent mainApplication = new Intent(getActivity(), ShodandMainActivity.class);
-        mainApplication.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainApplication);
+        navigator.showShodandActivity();
     }
 
     @Override
