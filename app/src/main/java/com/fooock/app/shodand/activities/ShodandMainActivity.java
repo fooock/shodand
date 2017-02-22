@@ -1,5 +1,6 @@
 package com.fooock.app.shodand.activities;
 
+import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,6 +17,7 @@ import android.view.View;
 
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
+import com.fooock.app.shodand.fragment.ExploreShodanFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +61,11 @@ public class ShodandMainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Timber.d("In onCreate()");
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        ExploreShodanFragment exploreShodanFragment = new ExploreShodanFragment();
+        transaction.add(R.id.content_main, exploreShodanFragment);
+        transaction.commit();
     }
 
     @Override

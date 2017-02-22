@@ -52,7 +52,9 @@ public class IntroduceKeyPresenter extends BasePresenter<IntroduceKeyView> {
             @Override
             public void onNext(Account account) {
                 Timber.d("Received account: %s", account);
-                customView.saveValidApiKey(apiKey);
+                if (isAttached()) {
+                    customView.saveValidApiKey(apiKey);
+                }
             }
 
             @Override
