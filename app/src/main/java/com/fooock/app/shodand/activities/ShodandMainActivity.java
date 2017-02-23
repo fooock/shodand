@@ -1,9 +1,7 @@
 package com.fooock.app.shodand.activities;
 
 import android.app.FragmentTransaction;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -23,8 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
-
-import static com.fooock.app.shodand.fragment.IntroduceKeyFragment.PREF_API_KEY;
 
 /**
  *
@@ -72,9 +68,7 @@ public class ShodandMainActivity extends BaseActivity
     void initializeComponents(@NonNull ShodandApplication application) {
         Timber.d("Initializing components...");
 
-        SharedPreferences preferences = PreferenceManager
-                .getDefaultSharedPreferences(this);
-        String apiKey = preferences.getString(PREF_API_KEY, "");
+        final String apiKey = application.preferences().getApiKey();
 
         if (apiKey.isEmpty()) {
             Timber.d("No API key found, opening configuration activity...");

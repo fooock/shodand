@@ -4,11 +4,9 @@ import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fooock.app.shodand.Navigator;
+import com.fooock.app.shodand.Prefs;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 import com.fooock.app.shodand.presenter.IntroduceKeyPresenter;
@@ -31,8 +30,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
-
-import static com.fooock.app.shodand.fragment.IntroduceKeyFragment.PREF_API_KEY;
 
 /**
  *
@@ -57,6 +54,7 @@ public class InitialConfigurationFragment extends BaseFragment implements Introd
 
     private IntroduceKeyPresenter introduceKeyPresenter;
     private Navigator navigator;
+    private Prefs prefs;
 
     @Nullable
     @Override
@@ -88,6 +86,7 @@ public class InitialConfigurationFragment extends BaseFragment implements Introd
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
         navigator = application.navigator();
+        prefs = application.preferences();
         introduceKeyPresenter = new IntroduceKeyPresenter(
                 application.validationRepository(),
                 application.mainThread(),
@@ -226,8 +225,6 @@ public class InitialConfigurationFragment extends BaseFragment implements Introd
 
     @Override
     public void saveValidApiKey(String apiKey) {
-        SharedPreferences preferences = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
-        preferences.edit().putString(PREF_API_KEY, apiKey).apply();
+        prefs.saveApiKey(apiKey);
     }
 }

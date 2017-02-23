@@ -1,20 +1,17 @@
 package com.fooock.app.shodand.activities;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.fooock.app.shodand.Navigator;
+import com.fooock.app.shodand.Prefs;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 
 import butterknife.ButterKnife;
 import timber.log.Timber;
-
-import static com.fooock.app.shodand.fragment.IntroduceKeyFragment.PREF_API_KEY;
 
 /**
  *
@@ -26,6 +23,7 @@ public class SplashActivity extends BaseActivity {
     private final Handler handler = new Handler();
 
     private Navigator navigator;
+    private Prefs prefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +56,7 @@ public class SplashActivity extends BaseActivity {
 
         ButterKnife.bind(this);
         navigator = application.navigator();
+        prefs = application.preferences();
     }
 
     /**
@@ -66,9 +65,7 @@ public class SplashActivity extends BaseActivity {
      * @return true if configured, false if not
      */
     private boolean isConfigurationValid() {
-        SharedPreferences preferences = PreferenceManager
-                .getDefaultSharedPreferences(this);
-        String apiKey = preferences.getString(PREF_API_KEY, "");
+        String apiKey = prefs.getApiKey();
         Timber.d("Configured API key? %s", apiKey);
         return apiKey.isEmpty();
     }

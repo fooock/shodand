@@ -6,6 +6,8 @@ import com.fooock.app.shodand.view.ExploreView;
 import com.fooock.shodand.domain.executor.MainThread;
 import com.fooock.shodand.domain.executor.ThreadExecutor;
 
+import timber.log.Timber;
+
 /**
  *
  */
@@ -17,7 +19,9 @@ public class ExploreShodanPresenter extends BasePresenter<ExploreView> {
 
     }
 
-    public void update() {
+    public void update(String apiKey) {
+        Timber.d("Update api status info with key[%s]", apiKey);
+
         customView.showLoading();
         handler.postDelayed(new Runnable() {
             @Override

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.fooock.app.shodand.Prefs;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 import com.fooock.app.shodand.presenter.ExploreShodanPresenter;
@@ -25,6 +26,7 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
     protected ProgressBar progressBar;
 
     private ExploreShodanPresenter exploreShodanPresenter;
+    private Prefs prefs;
 
     @Nullable
     @Override
@@ -42,7 +44,7 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
 
         setTitle(R.string.title_explore);
 
-        exploreShodanPresenter.update();
+        exploreShodanPresenter.update(prefs.getApiKey());
     }
 
     @Override
@@ -54,6 +56,7 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
     @Override
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
+        prefs = application.preferences();
         exploreShodanPresenter = new ExploreShodanPresenter(
                 application.mainThread(), application.threadExecutor());
     }

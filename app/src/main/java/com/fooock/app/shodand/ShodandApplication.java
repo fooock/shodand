@@ -18,6 +18,7 @@ import com.fooock.shodand.domain.repository.ValidationRepository;
  */
 public abstract class ShodandApplication extends Application {
 
+    private Prefs prefs;
     private Navigator navigator;
     private ShodanApis shodanApis;
     private DatabaseHelper databaseHelper;
@@ -26,6 +27,7 @@ public abstract class ShodandApplication extends Application {
     public void onCreate() {
         super.onCreate();
         navigator = new Navigator(this);
+        prefs = new Prefs(this);
 
         // Create the database helper
         databaseHelper = new DatabaseHelper(this);
@@ -43,6 +45,13 @@ public abstract class ShodandApplication extends Application {
      */
     public Navigator navigator() {
         return navigator;
+    }
+
+    /**
+     * @return Application preferences
+     */
+    public Prefs preferences() {
+        return prefs;
     }
 
     /**
