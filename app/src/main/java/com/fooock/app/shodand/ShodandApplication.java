@@ -4,13 +4,17 @@ import android.app.Application;
 
 import com.fooock.app.shodand.executor.DefaultMainThread;
 import com.fooock.app.shodand.executor.DefaultThreadExecutor;
+import com.fooock.app.shodand.repository.DefaultShodanRepository;
 import com.fooock.app.shodand.repository.DefaultValidationRepository;
 import com.fooock.app.shodand.repository.database.DatabaseHelper;
 import com.fooock.app.shodand.repository.datasource.AccountDatabaseDataSource;
-import com.fooock.shodand.data.AccountDataSource;
+import com.fooock.app.shodand.repository.datasource.ShodanDatabaseDataSource;
 import com.fooock.shodand.data.ShodanApis;
+import com.fooock.shodand.data.datasource.AccountDataSource;
+import com.fooock.shodand.data.datasource.ShodanDataSource;
 import com.fooock.shodand.domain.executor.MainThread;
 import com.fooock.shodand.domain.executor.ThreadExecutor;
+import com.fooock.shodand.domain.repository.ShodanRepository;
 import com.fooock.shodand.domain.repository.ValidationRepository;
 
 /**
@@ -80,6 +84,21 @@ public abstract class ShodandApplication extends Application {
      */
     private AccountDataSource accountDatabaseDataSource() {
         return AccountDatabaseDataSource.getInstance(databaseHelper);
+    }
+
+    /**
+     * @return Shodan repository
+     */
+    public ShodanRepository shodanRepository() {
+        return DefaultShodanRepository.getInstance(
+                shodanApis.getShodanRestApi(), shodanDatabaseDataSource());
+    }
+
+    /**
+     * @return shodan database data source
+     */
+    private ShodanDataSource shodanDatabaseDataSource() {
+        return ShodanDatabaseDataSource.getInstance(databaseHelper);
     }
 
     /**

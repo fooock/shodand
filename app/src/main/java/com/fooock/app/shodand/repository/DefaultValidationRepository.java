@@ -1,7 +1,7 @@
 package com.fooock.app.shodand.repository;
 
-import com.fooock.shodand.data.AccountDataSource;
 import com.fooock.shodand.data.ValidationDataRepository;
+import com.fooock.shodand.data.datasource.AccountDataSource;
 import com.fooock.shodand.domain.ApiKey;
 import com.fooock.shodand.domain.model.Account;
 import com.fooock.shodand.domain.repository.ValidationRepository;

@@ -1,6 +1,6 @@
 package com.fooock.shodand.data.consumer;
 
-import com.fooock.shodand.data.AccountDataSource;
+import com.fooock.shodand.data.datasource.AccountDataSource;
 import com.fooock.shodand.domain.model.Account;
 
 import io.reactivex.annotations.NonNull;

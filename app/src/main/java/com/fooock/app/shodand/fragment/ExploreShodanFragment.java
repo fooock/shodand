@@ -2,16 +2,19 @@ package com.fooock.app.shodand.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.fooock.app.shodand.Prefs;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 import com.fooock.app.shodand.presenter.ExploreShodanPresenter;
 import com.fooock.app.shodand.view.ExploreView;
+import com.fooock.shodand.domain.model.TagCount;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +29,6 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
     protected ProgressBar progressBar;
 
     private ExploreShodanPresenter exploreShodanPresenter;
-    private Prefs prefs;
 
     @Nullable
     @Override
@@ -44,7 +46,7 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
 
         setTitle(R.string.title_explore);
 
-        exploreShodanPresenter.update(prefs.getApiKey());
+        exploreShodanPresenter.update();
     }
 
     @Override
@@ -56,9 +58,10 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
     @Override
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
-        prefs = application.preferences();
         exploreShodanPresenter = new ExploreShodanPresenter(
-                application.mainThread(), application.threadExecutor());
+                application.shodanRepository(),
+                application.mainThread(),
+                application.threadExecutor());
     }
 
     @Override
@@ -69,5 +72,19 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
     @Override
     public void hideLoading() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showPopularTags(List<TagCount> tags) {
+        Timber.d("Show %s popular tags", tags.size());
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        View view = getView();
+        if (view == null) {
+            return;
+        }
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 }

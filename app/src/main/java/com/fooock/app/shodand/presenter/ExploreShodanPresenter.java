@@ -1,11 +1,16 @@
 package com.fooock.app.shodand.presenter;
 
-import android.os.Handler;
-
 import com.fooock.app.shodand.view.ExploreView;
 import com.fooock.shodand.domain.executor.MainThread;
 import com.fooock.shodand.domain.executor.ThreadExecutor;
+import com.fooock.shodand.domain.interactor.GetPopularTags;
+import com.fooock.shodand.domain.model.TagCount;
+import com.fooock.shodand.domain.model.params.SizeParam;
+import com.fooock.shodand.domain.repository.ShodanRepository;
 
+import java.util.List;
+
+import io.reactivex.observers.DisposableObserver;
 import timber.log.Timber;
 
 /**
@@ -13,26 +18,44 @@ import timber.log.Timber;
  */
 public class ExploreShodanPresenter extends BasePresenter<ExploreView> {
 
-    private final Handler handler = new Handler();
+    private final GetPopularTags getPopularTags;
 
-    public ExploreShodanPresenter(MainThread mainThread, ThreadExecutor threadExecutor) {
-
+    public ExploreShodanPresenter(ShodanRepository repository, MainThread mainThread,
+                                  ThreadExecutor threadExecutor) {
+        getPopularTags = new GetPopularTags(repository, mainThread, threadExecutor);
     }
 
-    public void update(String apiKey) {
-        Timber.d("Update api status info with key[%s]", apiKey);
-
+    public void update() {
+        Timber.d("Prepared to get popular tags");
         customView.showLoading();
-        handler.postDelayed(new Runnable() {
+        getPopularTags.execute(new DisposableObserver<List<TagCount>>() {
             @Override
-            public void run() {
-                customView.hideLoading();
+            public void onNext(List<TagCount> tagCounts) {
+                if (isAttached()) {
+                    customView.showPopularTags(tagCounts);
+                }
             }
-        }, 2000);
+
+            @Override
+            public void onError(Throwable e) {
+                Timber.e(e);
+                if (isAttached()) {
+                    customView.hideLoading();
+                    customView.showErrorMessage(e.getLocalizedMessage());
+                }
+            }
+
+            @Override
+            public void onComplete() {
+                if (isAttached()) {
+                    customView.hideLoading();
+                }
+            }
+        }, new SizeParam());
     }
 
     @Override
     void release() {
-
+        getPopularTags.close();
     }
 }

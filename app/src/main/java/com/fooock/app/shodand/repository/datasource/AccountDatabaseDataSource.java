@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.fooock.app.shodand.repository.database.DatabaseHelper;
 import com.fooock.app.shodand.repository.database.table.AccountTable;
-import com.fooock.shodand.data.AccountDataSource;
+import com.fooock.shodand.data.datasource.AccountDataSource;
 import com.fooock.shodand.domain.model.Account;
 
 import java.util.concurrent.Callable;
