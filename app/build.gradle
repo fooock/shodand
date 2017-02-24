@@ -48,4 +48,6 @@ dependencies {
     compile rootProject.ext.appLibraries.androidDesign
     compile rootProject.ext.appLibraries.rxJava
     compile rootProject.ext.appLibraries.rxJavaAndroid
+    compile rootProject.ext.appLibraries.recyclerview
+    compile rootProject.ext.appLibraries.cardview
 }

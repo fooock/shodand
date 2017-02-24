@@ -13,6 +13,8 @@ ext {
     zxingAndroidVersion = "3.4.0"
     androidDesignVersion = "25.1.1"
     androidRxJava = "2.0.1"
+    recyclerviewVersion = "25.1.1"
+    cardviewVersion = "25.1.1"
 
     // Testing libraries versions
     junitVersion = "4.12"
@@ -32,7 +34,9 @@ ext {
             zxingAndroid        : "com.journeyapps:zxing-android-embedded:${zxingAndroidVersion}",
             androidDesign       : "com.android.support:design:${androidDesignVersion}",
             rxJava              : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            rxJavaAndroid       : "io.reactivex.rxjava2:rxandroid:${androidRxJava}"
+            rxJavaAndroid       : "io.reactivex.rxjava2:rxandroid:${androidRxJava}",
+            recyclerview        : "com.android.support:recyclerview-v7:${recyclerviewVersion}",
+            cardview            : "com.android.support:cardview-v7:${cardviewVersion}"
     ]
 
     appTest = [

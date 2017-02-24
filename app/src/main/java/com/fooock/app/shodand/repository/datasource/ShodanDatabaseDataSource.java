@@ -4,6 +4,7 @@ import com.fooock.app.shodand.repository.database.DatabaseHelper;
 import com.fooock.shodand.data.datasource.ShodanDataSource;
 import com.fooock.shodand.domain.model.TagCount;
 
+import java.util.Collections;
 import java.util.List;
 
 import timber.log.Timber;
@@ -41,6 +42,6 @@ public class ShodanDatabaseDataSource implements ShodanDataSource {
 
     @Override
     public List<TagCount> get() {
-        return null;
+        return Collections.emptyList();
     }
 }
