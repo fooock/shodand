@@ -101,11 +101,11 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showUnexpectedError() {
         View view = getView();
         if (view == null) {
             return;
         }
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, R.string.show_unexpected_error, Snackbar.LENGTH_LONG).show();
     }
 }

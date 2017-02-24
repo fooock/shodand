@@ -42,7 +42,7 @@ public class ExploreShodanPresenter extends BasePresenter<ExploreView> {
                 Timber.e(e);
                 if (isAttached()) {
                     customView.hideLoading();
-                    customView.showErrorMessage(e.getLocalizedMessage());
+                    customView.showUnexpectedError();
 
                     // if an error occurs then show an empty list of tags
                     // to show the ui

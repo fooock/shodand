@@ -15,5 +15,5 @@ public interface ExploreView extends BaseView {
 
     void showPopularTags(List<TagCount> tags);
 
-    void showErrorMessage(String message);
+    void showUnexpectedError();
 }
