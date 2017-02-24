@@ -93,10 +93,10 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
     public void showPopularTags(List<TagCount> tags) {
         Timber.d("Show %s popular tags", tags.size());
 
-        List<Row> rows = new ArrayList<>();
+        final List<Row> rows = new ArrayList<>();
         rows.add(new PopularTagRow(tags));
 
-        ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows);
+        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows);
         recyclerView.setAdapter(dataAdapter);
     }
 

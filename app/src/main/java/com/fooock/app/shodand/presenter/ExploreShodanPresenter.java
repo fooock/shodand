@@ -8,6 +8,7 @@ import com.fooock.shodand.domain.model.TagCount;
 import com.fooock.shodand.domain.model.params.SizeParam;
 import com.fooock.shodand.domain.repository.ShodanRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
@@ -42,6 +43,10 @@ public class ExploreShodanPresenter extends BasePresenter<ExploreView> {
                 if (isAttached()) {
                     customView.hideLoading();
                     customView.showErrorMessage(e.getLocalizedMessage());
+
+                    // if an error occurs then show an empty list of tags
+                    // to show the ui
+                    customView.showPopularTags(Collections.<TagCount>emptyList());
                 }
             }
 
