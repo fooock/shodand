@@ -12,6 +12,7 @@ import com.fooock.app.shodand.model.PopularTagRow;
 import com.fooock.app.shodand.model.QueriesRow;
 import com.fooock.app.shodand.model.QueryType;
 import com.fooock.app.shodand.model.Row;
+import com.fooock.app.shodand.view.ExploreView;
 import com.fooock.app.shodand.view.decorator.DividerItemDecorator;
 import com.fooock.shodand.domain.model.TagCount;
 
@@ -30,13 +31,19 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private final List<Row> rowList;
 
+    private final ExploreView.QueryListener queryListener;
+    private final ExploreView.TagListener tagListener;
+
     /**
      * Create this adapter with the given list of rows
      *
      * @param rows list of rows for this adapter
      */
-    public ExploreDataAdapter(List<Row> rows) {
-        rowList = rows;
+    public ExploreDataAdapter(List<Row> rows, ExploreView.QueryListener queryListener,
+                              ExploreView.TagListener tagListener) {
+        this.rowList = rows;
+        this.queryListener = queryListener;
+        this.tagListener = tagListener;
     }
 
     @Override
@@ -46,12 +53,12 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (viewType == VIEW_TYPE_POPULAR_TAGS) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_explore_tags, parent, false);
-            viewHolder = new TagHolder(view);
+            viewHolder = new TagHolder(view, tagListener);
 
         } else if (viewType == VIEW_TYPE_QUERIES) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_explore_queries, parent, false);
-            viewHolder = new QueriesHolder(view);
+            viewHolder = new QueriesHolder(view, queryListener);
         }
         return viewHolder;
     }
@@ -103,8 +110,11 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @BindView(R.id.rv_query_types)
         RecyclerView rvQueryTypes;
 
-        QueriesHolder(View itemView) {
+        private final ExploreView.QueryListener queryListener;
+
+        QueriesHolder(View itemView, ExploreView.QueryListener queryListener) {
             super(itemView);
+            this.queryListener = queryListener;
             ButterKnife.bind(this, itemView);
             final LinearLayoutManager layoutManager = new LinearLayoutManager(
                     itemView.getContext());
@@ -114,7 +124,7 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         void setQueryTypes(List<QueryType> queryTypes) {
-            QueriesAdapter adapter = new QueriesAdapter(queryTypes);
+            final QueriesAdapter adapter = new QueriesAdapter(queryTypes, queryListener);
             rvQueryTypes.setAdapter(adapter);
         }
     }
@@ -136,8 +146,11 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @BindView(R.id.rv_popular_tags)
         RecyclerView rvPopularTags;
 
-        TagHolder(View itemView) {
+        private final ExploreView.TagListener tagListener;
+
+        TagHolder(View itemView, ExploreView.TagListener tagListener) {
             super(itemView);
+            this.tagListener = tagListener;
             ButterKnife.bind(this, itemView);
             final LinearLayoutManager layoutManager = new LinearLayoutManager(
                     itemView.getContext());
@@ -159,7 +172,7 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             txtTagsNotFound.setVisibility(View.GONE);
             rvPopularTags.setVisibility(View.VISIBLE);
 
-            PopularTagAdapter popularTagAdapter = new PopularTagAdapter(tags);
+            final PopularTagAdapter popularTagAdapter = new PopularTagAdapter(tags, tagListener);
             rvPopularTags.setAdapter(popularTagAdapter);
         }
     }

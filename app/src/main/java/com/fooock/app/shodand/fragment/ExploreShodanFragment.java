@@ -1,6 +1,7 @@
 package com.fooock.app.shodand.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +33,8 @@ import timber.log.Timber;
 /**
  *
  */
-public class ExploreShodanFragment extends BaseFragment implements ExploreView {
+public class ExploreShodanFragment extends BaseFragment implements ExploreView,
+        ExploreView.QueryListener, ExploreView.TagListener {
 
     @BindView(R.id.pb_loading_content)
     protected ProgressBar progressBar;
@@ -98,13 +100,13 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
 
         final List<Row> rows = new ArrayList<>();
 
-        QueryType queryType = new QueryType(0, R.string.title_list_queries);
-        QueryType searchQueries = new QueryType(0, R.string.title_search_queries);
+        final QueryType queryType = new QueryType(0, R.string.title_list_queries);
+        final QueryType searchQueries = new QueryType(0, R.string.title_search_queries);
 
         rows.add(new QueriesRow(Arrays.asList(queryType, searchQueries)));
         rows.add(new PopularTagRow(tags));
 
-        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows);
+        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows, this, this);
         recyclerView.setAdapter(dataAdapter);
     }
 
@@ -115,5 +117,20 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
             return;
         }
         Snackbar.make(view, R.string.show_unexpected_error, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onQueryListSelected() {
+        Timber.d("Selected list queries");
+    }
+
+    @Override
+    public void onQuerySearchSelected() {
+        Timber.d("Selected query search");
+    }
+
+    @Override
+    public void onTagSelected(@NonNull TagCount tag) {
+        Timber.d("Selected tag %s", tag.getName());
     }
 }
