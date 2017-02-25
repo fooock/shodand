@@ -12,6 +12,7 @@ import com.fooock.app.shodand.model.PopularTagRow;
 import com.fooock.app.shodand.model.QueriesRow;
 import com.fooock.app.shodand.model.QueryType;
 import com.fooock.app.shodand.model.Row;
+import com.fooock.app.shodand.view.decorator.DividerItemDecorator;
 import com.fooock.shodand.domain.model.TagCount;
 
 import java.util.List;
@@ -105,13 +106,14 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         QueriesHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-        }
-
-        void setQueryTypes(List<QueryType> queryTypes) {
             final LinearLayoutManager layoutManager = new LinearLayoutManager(
                     itemView.getContext());
             rvQueryTypes.setLayoutManager(layoutManager);
             rvQueryTypes.setHasFixedSize(true);
+            rvQueryTypes.addItemDecoration(new DividerItemDecorator(itemView.getContext()));
+        }
+
+        void setQueryTypes(List<QueryType> queryTypes) {
             QueriesAdapter adapter = new QueriesAdapter(queryTypes);
             rvQueryTypes.setAdapter(adapter);
         }
@@ -140,6 +142,7 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             final LinearLayoutManager layoutManager = new LinearLayoutManager(
                     itemView.getContext());
             rvPopularTags.setLayoutManager(layoutManager);
+            rvPopularTags.addItemDecoration(new DividerItemDecorator(itemView.getContext()));
         }
 
         /**
