@@ -101,21 +101,45 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
         Timber.d("Show %s popular tags", tags.size());
 
         final List<Row> rows = new ArrayList<>();
-
-        final QueryType queryType = new QueryType(0, R.string.title_list_queries);
-        final QueryType searchQueries = new QueryType(0, R.string.title_search_queries);
-
-        rows.add(new QueriesRow(Arrays.asList(queryType, searchQueries)));
-        rows.add(new PopularTagRow(tags));
-
-        final ServicesType byIp = new ServicesType(0, R.string.title_service_by_ip);
-        final ServicesType summaryInfo = new ServicesType(0, R.string.title_service_summary_info);
-        final ServicesType searchServices = new ServicesType(0, R.string.title_search_service);
-
-        rows.add(new ServicesRow(Arrays.asList(byIp, summaryInfo, searchServices)));
+        rows.add(createQueriesRow());
+        rows.add(createPopularTagRow(tags));
+        rows.add(createServicesRow());
 
         final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows, this, this, this);
         recyclerView.setAdapter(dataAdapter);
+    }
+
+    /**
+     * Create the row to show the queries card
+     *
+     * @return query row
+     */
+    private QueriesRow createQueriesRow() {
+        final QueryType queryType = new QueryType(0, R.string.title_list_queries);
+        final QueryType searchQueries = new QueryType(0, R.string.title_search_queries);
+        return new QueriesRow(Arrays.asList(queryType, searchQueries));
+    }
+
+    /**
+     * Create the row to show the popular tags
+     *
+     * @param tags list of popular tags
+     * @return popular tag row
+     */
+    private PopularTagRow createPopularTagRow(List<TagCount> tags) {
+        return new PopularTagRow(tags);
+    }
+
+    /**
+     * Create the row to show the services card
+     *
+     * @return service row
+     */
+    private ServicesRow createServicesRow() {
+        final ServicesType byIp = new ServicesType(0, R.string.title_service_by_ip);
+        final ServicesType summaryInfo = new ServicesType(0, R.string.title_service_summary_info);
+        final ServicesType searchServices = new ServicesType(0, R.string.title_search_service);
+        return new ServicesRow(Arrays.asList(byIp, summaryInfo, searchServices));
     }
 
     @Override
