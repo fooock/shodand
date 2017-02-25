@@ -116,6 +116,9 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return VIEW_TYPE_SERVICES;
     }
 
+    /**
+     * View holder for services
+     */
     static class ServicesHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.txt_title_services)
