@@ -12,6 +12,8 @@ import com.fooock.app.shodand.model.PopularTagRow;
 import com.fooock.app.shodand.model.QueriesRow;
 import com.fooock.app.shodand.model.QueryType;
 import com.fooock.app.shodand.model.Row;
+import com.fooock.app.shodand.model.ServicesRow;
+import com.fooock.app.shodand.model.ServicesType;
 import com.fooock.app.shodand.view.ExploreView;
 import com.fooock.app.shodand.view.decorator.DividerItemDecorator;
 import com.fooock.shodand.domain.model.TagCount;
@@ -28,11 +30,13 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final int VIEW_TYPE_POPULAR_TAGS = 0;
     private static final int VIEW_TYPE_QUERIES = 1;
+    private static final int VIEW_TYPE_SERVICES = 2;
 
     private final List<Row> rowList;
 
     private final ExploreView.QueryListener queryListener;
     private final ExploreView.TagListener tagListener;
+    private final ExploreView.ServiceListener serviceListener;
 
     /**
      * Create this adapter with the given list of rows
@@ -40,10 +44,12 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * @param rows list of rows for this adapter
      */
     public ExploreDataAdapter(List<Row> rows, ExploreView.QueryListener queryListener,
-                              ExploreView.TagListener tagListener) {
+                              ExploreView.TagListener tagListener,
+                              ExploreView.ServiceListener serviceListener) {
         this.rowList = rows;
         this.queryListener = queryListener;
         this.tagListener = tagListener;
+        this.serviceListener = serviceListener;
     }
 
     @Override
@@ -59,6 +65,11 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_explore_queries, parent, false);
             viewHolder = new QueriesHolder(view, queryListener);
+
+        } else if (viewType == VIEW_TYPE_SERVICES) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.adapter_explore_services, parent, false);
+            viewHolder = new ServicesHolder(view, serviceListener);
         }
         return viewHolder;
     }
@@ -80,6 +91,13 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             sharedHolder.txtTitleQueries.setText(row.getName());
             sharedHolder.txtDescriptionQueries.setText(row.getDescription());
             sharedHolder.setQueryTypes(row.data());
+
+        } else if (viewType == VIEW_TYPE_SERVICES) {
+            ServicesRow row = (ServicesRow) rowList.get(position);
+            ServicesHolder servicesHolder = (ServicesHolder) holder;
+            servicesHolder.txtTitleServices.setText(row.getName());
+            servicesHolder.txtDescriptionServices.setText(row.getDescription());
+            servicesHolder.setServicesTypes(row.data());
         }
     }
 
@@ -92,8 +110,40 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemViewType(int position) {
         if (position == 0) {
             return VIEW_TYPE_QUERIES;
+        } else if (position == 1) {
+            return VIEW_TYPE_POPULAR_TAGS;
         }
-        return VIEW_TYPE_POPULAR_TAGS;
+        return VIEW_TYPE_SERVICES;
+    }
+
+    static class ServicesHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.txt_title_services)
+        TextView txtTitleServices;
+
+        @BindView(R.id.txt_description_services)
+        TextView txtDescriptionServices;
+
+        @BindView(R.id.rv_service_types)
+        RecyclerView rvServiceTypes;
+
+        private final ExploreView.ServiceListener serviceListener;
+
+        ServicesHolder(View itemView, ExploreView.ServiceListener serviceListener) {
+            super(itemView);
+            this.serviceListener = serviceListener;
+            ButterKnife.bind(this, itemView);
+            final LinearLayoutManager layoutManager = new LinearLayoutManager(
+                    itemView.getContext());
+            rvServiceTypes.setLayoutManager(layoutManager);
+            rvServiceTypes.setHasFixedSize(true);
+            rvServiceTypes.addItemDecoration(new DividerItemDecorator(itemView.getContext()));
+        }
+
+        void setServicesTypes(List<ServicesType> servicesTypes) {
+            final ServicesAdapter adapter = new ServicesAdapter(servicesTypes, serviceListener);
+            rvServiceTypes.setAdapter(adapter);
+        }
     }
 
     /**

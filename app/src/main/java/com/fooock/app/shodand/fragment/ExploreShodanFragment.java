@@ -17,6 +17,8 @@ import com.fooock.app.shodand.model.PopularTagRow;
 import com.fooock.app.shodand.model.QueriesRow;
 import com.fooock.app.shodand.model.QueryType;
 import com.fooock.app.shodand.model.Row;
+import com.fooock.app.shodand.model.ServicesRow;
+import com.fooock.app.shodand.model.ServicesType;
 import com.fooock.app.shodand.presenter.ExploreShodanPresenter;
 import com.fooock.app.shodand.view.ExploreView;
 import com.fooock.app.shodand.view.adapter.ExploreDataAdapter;
@@ -34,7 +36,7 @@ import timber.log.Timber;
  *
  */
 public class ExploreShodanFragment extends BaseFragment implements ExploreView,
-        ExploreView.QueryListener, ExploreView.TagListener {
+        ExploreView.QueryListener, ExploreView.TagListener, ExploreView.ServiceListener {
 
     @BindView(R.id.pb_loading_content)
     protected ProgressBar progressBar;
@@ -106,7 +108,13 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
         rows.add(new QueriesRow(Arrays.asList(queryType, searchQueries)));
         rows.add(new PopularTagRow(tags));
 
-        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows, this, this);
+        final ServicesType byIp = new ServicesType(0, R.string.title_service_by_ip);
+        final ServicesType summaryInfo = new ServicesType(0, R.string.title_service_summary_info);
+        final ServicesType searchServices = new ServicesType(0, R.string.title_search_service);
+
+        rows.add(new ServicesRow(Arrays.asList(byIp, summaryInfo, searchServices)));
+
+        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows, this, this, this);
         recyclerView.setAdapter(dataAdapter);
     }
 
@@ -132,5 +140,20 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
     @Override
     public void onTagSelected(@NonNull TagCount tag) {
         Timber.d("Selected tag %s", tag.getName());
+    }
+
+    @Override
+    public void onSearchByIp() {
+        Timber.d("Selected search by ip");
+    }
+
+    @Override
+    public void onSearchSummaryInfo() {
+        Timber.d("Selected get summary info");
+    }
+
+    @Override
+    public void onSearchServices() {
+        Timber.d("Selected search services");
     }
 }

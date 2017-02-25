@@ -31,5 +31,10 @@
     <string name="description_recent_shared">List or search queries that users have saved</string>
     <string name="title_list_queries">List queries</string>
     <string name="title_search_queries">Search queries</string>
+    <string name="title_services">Services</string>
+    <string name="description_services">Search services by ip, get summary info from a host or make a free search</string>
+    <string name="title_service_by_ip">Search by IP</string>
+    <string name="title_service_summary_info">Get summary info</string>
+    <string name="title_search_service">Search services</string>
 
 </resources>
