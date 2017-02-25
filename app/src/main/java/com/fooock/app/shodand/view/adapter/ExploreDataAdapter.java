@@ -51,6 +51,8 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (getItemViewType(position) == VIEW_TYPE_POPULAR_TAGS) {
             PopularTagRow row = (PopularTagRow) rowList.get(position);
             TagHolder tagHolder = (TagHolder) holder;
+            tagHolder.txtTitleTag.setText(row.getName());
+            tagHolder.txtTagsDescription.setText(row.getDescription());
             tagHolder.updatePopularTags(row.data());
         }
     }
@@ -71,7 +73,10 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     static class TagHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.title_popular_tags)
-        TextView txtTagName;
+        TextView txtTitleTag;
+
+        @BindView(R.id.txt_popular_tags_description)
+        TextView txtTagsDescription;
 
         @BindView(R.id.txt_data_not_found)
         TextView txtTagsNotFound;

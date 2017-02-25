@@ -26,5 +26,6 @@
     <string name="title_popular_tags">Popular tags</string>
     <string name="txt_tags_not_found">Popular tags not found</string>
     <string name="show_unexpected_error">An unexpected error has occurred</string>
+    <string name="description_popular_tags">Popular tags for the saved search queries in Shodan</string>
 
 </resources>
