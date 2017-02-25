@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 import com.fooock.app.shodand.model.PopularTagRow;
+import com.fooock.app.shodand.model.QueriesRow;
+import com.fooock.app.shodand.model.QueryType;
 import com.fooock.app.shodand.model.Row;
 import com.fooock.app.shodand.presenter.ExploreShodanPresenter;
 import com.fooock.app.shodand.view.ExploreView;
@@ -20,6 +22,7 @@ import com.fooock.app.shodand.view.adapter.ExploreDataAdapter;
 import com.fooock.shodand.domain.model.TagCount;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -94,6 +97,11 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView {
         Timber.d("Show %s popular tags", tags.size());
 
         final List<Row> rows = new ArrayList<>();
+
+        QueryType queryType = new QueryType(0, R.string.title_list_queries);
+        QueryType searchQueries = new QueryType(0, R.string.title_search_queries);
+
+        rows.add(new QueriesRow(Arrays.asList(queryType, searchQueries)));
         rows.add(new PopularTagRow(tags));
 
         final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows);

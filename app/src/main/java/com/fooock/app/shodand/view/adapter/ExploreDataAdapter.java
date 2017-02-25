@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.model.PopularTagRow;
+import com.fooock.app.shodand.model.QueriesRow;
+import com.fooock.app.shodand.model.QueryType;
 import com.fooock.app.shodand.model.Row;
 import com.fooock.shodand.domain.model.TagCount;
 
@@ -23,6 +25,7 @@ import butterknife.ButterKnife;
 public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_POPULAR_TAGS = 0;
+    private static final int VIEW_TYPE_QUERIES = 1;
 
     private final List<Row> rowList;
 
@@ -38,22 +41,37 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
+
         if (viewType == VIEW_TYPE_POPULAR_TAGS) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_explore_tags, parent, false);
             viewHolder = new TagHolder(view);
+
+        } else if (viewType == VIEW_TYPE_QUERIES) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.adapter_explore_queries, parent, false);
+            viewHolder = new QueriesHolder(view);
         }
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == VIEW_TYPE_POPULAR_TAGS) {
+        final int viewType = getItemViewType(position);
+
+        if (viewType == VIEW_TYPE_POPULAR_TAGS) {
             PopularTagRow row = (PopularTagRow) rowList.get(position);
             TagHolder tagHolder = (TagHolder) holder;
             tagHolder.txtTitleTag.setText(row.getName());
             tagHolder.txtTagsDescription.setText(row.getDescription());
             tagHolder.updatePopularTags(row.data());
+
+        } else if (viewType == VIEW_TYPE_QUERIES) {
+            QueriesRow row = (QueriesRow) rowList.get(position);
+            QueriesHolder sharedHolder = (QueriesHolder) holder;
+            sharedHolder.txtTitleQueries.setText(row.getName());
+            sharedHolder.txtDescriptionQueries.setText(row.getDescription());
+            sharedHolder.setQueryTypes(row.data());
         }
     }
 
@@ -64,7 +82,39 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
+        if (position == 0) {
+            return VIEW_TYPE_QUERIES;
+        }
         return VIEW_TYPE_POPULAR_TAGS;
+    }
+
+    /**
+     * View holder for queries
+     */
+    static class QueriesHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.txt_title_redently_shared)
+        TextView txtTitleQueries;
+
+        @BindView(R.id.txt_description_recently_shared)
+        TextView txtDescriptionQueries;
+
+        @BindView(R.id.rv_query_types)
+        RecyclerView rvQueryTypes;
+
+        QueriesHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        void setQueryTypes(List<QueryType> queryTypes) {
+            final LinearLayoutManager layoutManager = new LinearLayoutManager(
+                    itemView.getContext());
+            rvQueryTypes.setLayoutManager(layoutManager);
+            rvQueryTypes.setHasFixedSize(true);
+            QueriesAdapter adapter = new QueriesAdapter(queryTypes);
+            rvQueryTypes.setAdapter(adapter);
+        }
     }
 
     /**
