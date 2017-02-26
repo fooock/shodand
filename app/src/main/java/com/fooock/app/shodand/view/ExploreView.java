@@ -38,6 +38,13 @@ public interface ExploreView extends BaseView {
         void onSearchServices();
     }
 
+    /**
+     * Click listener for protocols section in explore fragment
+     */
+    interface ProtocolListener {
+        void onProtocolSelected();
+    }
+
     void showLoading();
 
     void hideLoading();

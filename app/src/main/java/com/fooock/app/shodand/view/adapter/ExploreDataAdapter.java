@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.model.PopularTagRow;
+import com.fooock.app.shodand.model.ProtocolRow;
 import com.fooock.app.shodand.model.QueriesRow;
 import com.fooock.app.shodand.model.QueryType;
 import com.fooock.app.shodand.model.Row;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  *
@@ -31,12 +33,14 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int VIEW_TYPE_POPULAR_TAGS = 0;
     private static final int VIEW_TYPE_QUERIES = 1;
     private static final int VIEW_TYPE_SERVICES = 2;
+    private static final int VIEW_TYPE_PROTOCOLS = 3;
 
     private final List<Row> rowList;
 
     private final ExploreView.QueryListener queryListener;
     private final ExploreView.TagListener tagListener;
     private final ExploreView.ServiceListener serviceListener;
+    private final ExploreView.ProtocolListener protocolListener;
 
     /**
      * Create this adapter with the given list of rows
@@ -45,11 +49,13 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      */
     public ExploreDataAdapter(List<Row> rows, ExploreView.QueryListener queryListener,
                               ExploreView.TagListener tagListener,
-                              ExploreView.ServiceListener serviceListener) {
+                              ExploreView.ServiceListener serviceListener,
+                              ExploreView.ProtocolListener protocolListener) {
         this.rowList = rows;
         this.queryListener = queryListener;
         this.tagListener = tagListener;
         this.serviceListener = serviceListener;
+        this.protocolListener = protocolListener;
     }
 
     @Override
@@ -70,6 +76,11 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_explore_services, parent, false);
             viewHolder = new ServicesHolder(view, serviceListener);
+
+        } else if (viewType == VIEW_TYPE_PROTOCOLS) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.adapter_explore_protocols, parent, false);
+            viewHolder = new ProtocolHolder(view, protocolListener);
         }
         return viewHolder;
     }
@@ -98,6 +109,12 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             servicesHolder.txtTitleServices.setText(row.getName());
             servicesHolder.txtDescriptionServices.setText(row.getDescription());
             servicesHolder.setServicesTypes(row.data());
+
+        } else if (viewType == VIEW_TYPE_PROTOCOLS) {
+            ProtocolRow row = (ProtocolRow) rowList.get(position);
+            ProtocolHolder protocolHolder = (ProtocolHolder) holder;
+            protocolHolder.txtTitleProtocols.setText(row.getName());
+            protocolHolder.txtDescriptionProtocols.setText(row.getDescription());
         }
     }
 
@@ -112,8 +129,35 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return VIEW_TYPE_QUERIES;
         } else if (position == 1) {
             return VIEW_TYPE_POPULAR_TAGS;
+        } else if (position == 2) {
+            return VIEW_TYPE_SERVICES;
         }
-        return VIEW_TYPE_SERVICES;
+        return VIEW_TYPE_PROTOCOLS;
+    }
+
+    /**
+     * View holder for the protocols
+     */
+    static class ProtocolHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.txt_protocols_title)
+        TextView txtTitleProtocols;
+
+        @BindView(R.id.txt_protocols_description)
+        TextView txtDescriptionProtocols;
+
+        private final ExploreView.ProtocolListener protocolListener;
+
+        ProtocolHolder(View itemView, ExploreView.ProtocolListener protocolListener) {
+            super(itemView);
+            this.protocolListener = protocolListener;
+            ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick(R.id.layout_protocols)
+        void clickOnProtocols() {
+            protocolListener.onProtocolSelected();
+        }
     }
 
     /**

@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 import com.fooock.app.shodand.model.PopularTagRow;
+import com.fooock.app.shodand.model.ProtocolRow;
 import com.fooock.app.shodand.model.QueriesRow;
 import com.fooock.app.shodand.model.QueryType;
 import com.fooock.app.shodand.model.Row;
@@ -36,7 +37,8 @@ import timber.log.Timber;
  *
  */
 public class ExploreShodanFragment extends BaseFragment implements ExploreView,
-        ExploreView.QueryListener, ExploreView.TagListener, ExploreView.ServiceListener {
+        ExploreView.QueryListener, ExploreView.TagListener, ExploreView.ServiceListener,
+        ExploreView.ProtocolListener {
 
     @BindView(R.id.pb_loading_content)
     protected ProgressBar progressBar;
@@ -104,9 +106,19 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
         rows.add(createQueriesRow());
         rows.add(createPopularTagRow(tags));
         rows.add(createServicesRow());
+        rows.add(createProtocolRow());
 
-        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows, this, this, this);
+        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows, this, this, this, this);
         recyclerView.setAdapter(dataAdapter);
+    }
+
+    /**
+     * Create the row to show the protocol card
+     *
+     * @return protocol row
+     */
+    private ProtocolRow createProtocolRow() {
+        return new ProtocolRow();
     }
 
     /**
@@ -179,5 +191,10 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
     @Override
     public void onSearchServices() {
         Timber.d("Selected search services");
+    }
+
+    @Override
+    public void onProtocolSelected() {
+        Timber.d("Selected show protocols");
     }
 }
