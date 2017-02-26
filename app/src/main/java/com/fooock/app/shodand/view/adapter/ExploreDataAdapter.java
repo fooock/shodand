@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fooock.app.shodand.R;
+import com.fooock.app.shodand.model.DnsRow;
+import com.fooock.app.shodand.model.DnsType;
 import com.fooock.app.shodand.model.PopularTagRow;
 import com.fooock.app.shodand.model.ProtocolRow;
 import com.fooock.app.shodand.model.QueriesRow;
@@ -34,6 +36,7 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int VIEW_TYPE_QUERIES = 1;
     private static final int VIEW_TYPE_SERVICES = 2;
     private static final int VIEW_TYPE_PROTOCOLS = 3;
+    private static final int VIEW_TYPE_DNS = 4;
 
     private final List<Row> rowList;
 
@@ -41,6 +44,7 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final ExploreView.TagListener tagListener;
     private final ExploreView.ServiceListener serviceListener;
     private final ExploreView.ProtocolListener protocolListener;
+    private final ExploreView.DnsListener dnsListener;
 
     /**
      * Create this adapter with the given list of rows
@@ -50,12 +54,14 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public ExploreDataAdapter(List<Row> rows, ExploreView.QueryListener queryListener,
                               ExploreView.TagListener tagListener,
                               ExploreView.ServiceListener serviceListener,
-                              ExploreView.ProtocolListener protocolListener) {
+                              ExploreView.ProtocolListener protocolListener,
+                              ExploreView.DnsListener dnsListener) {
         this.rowList = rows;
         this.queryListener = queryListener;
         this.tagListener = tagListener;
         this.serviceListener = serviceListener;
         this.protocolListener = protocolListener;
+        this.dnsListener = dnsListener;
     }
 
     @Override
@@ -81,6 +87,11 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_explore_protocols, parent, false);
             viewHolder = new ProtocolHolder(view, protocolListener);
+
+        } else if (viewType == VIEW_TYPE_DNS) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.adapter_explore_dns, parent, false);
+            viewHolder = new DnsHolder(view, dnsListener);
         }
         return viewHolder;
     }
@@ -115,6 +126,13 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ProtocolHolder protocolHolder = (ProtocolHolder) holder;
             protocolHolder.txtTitleProtocols.setText(row.getName());
             protocolHolder.txtDescriptionProtocols.setText(row.getDescription());
+
+        } else if (viewType == VIEW_TYPE_DNS) {
+            DnsRow row = (DnsRow) rowList.get(position);
+            DnsHolder dnsHolder = (DnsHolder) holder;
+            dnsHolder.txtTitleDns.setText(row.getName());
+            dnsHolder.txtDescriptionDns.setText(row.getDescription());
+            dnsHolder.setDnsTypes(row.data());
         }
     }
 
@@ -131,8 +149,43 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return VIEW_TYPE_POPULAR_TAGS;
         } else if (position == 2) {
             return VIEW_TYPE_SERVICES;
+        } else if (position == 3) {
+            return VIEW_TYPE_PROTOCOLS;
         }
-        return VIEW_TYPE_PROTOCOLS;
+        return VIEW_TYPE_DNS;
+    }
+
+    /**
+     * View holder for the dns
+     */
+    static class DnsHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.txt_title_dns)
+        TextView txtTitleDns;
+
+        @BindView(R.id.txt_description_dns)
+        TextView txtDescriptionDns;
+
+        @BindView(R.id.rv_dns_types)
+        RecyclerView rvDnsTypes;
+
+        private final ExploreView.DnsListener dnsListener;
+
+        DnsHolder(View itemView, ExploreView.DnsListener dnsListener) {
+            super(itemView);
+            this.dnsListener = dnsListener;
+            ButterKnife.bind(this, itemView);
+            final LinearLayoutManager layoutManager = new LinearLayoutManager(
+                    itemView.getContext());
+            rvDnsTypes.setLayoutManager(layoutManager);
+            rvDnsTypes.setHasFixedSize(true);
+            rvDnsTypes.addItemDecoration(new DividerItemDecorator(itemView.getContext()));
+        }
+
+        void setDnsTypes(List<DnsType> dnsTypes) {
+            DnsAdapter adapter = new DnsAdapter(dnsTypes, dnsListener);
+            rvDnsTypes.setAdapter(adapter);
+        }
     }
 
     /**

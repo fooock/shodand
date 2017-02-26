@@ -45,6 +45,12 @@ public interface ExploreView extends BaseView {
         void onProtocolSelected();
     }
 
+    interface DnsListener {
+        void onResolveDnsSelected();
+
+        void onReverseDnsSelected();
+    }
+
     void showLoading();
 
     void hideLoading();

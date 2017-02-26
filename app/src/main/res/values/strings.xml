@@ -32,11 +32,15 @@
     <string name="title_list_queries">List queries</string>
     <string name="title_search_queries">Search queries</string>
     <string name="title_services">Services</string>
-    <string name="description_services">Search services by ip, get summary info from a host or make a free search</string>
+    <string name="description_services">Search services by ip, get summary info from a host or make a custom search</string>
     <string name="title_service_by_ip">Search by IP</string>
     <string name="title_service_summary_info">Get summary info</string>
     <string name="title_search_service">Search services</string>
-    <string name="title_protocols">Search protocols</string>
+    <string name="title_protocols">Protocols</string>
     <string name="description_protocols">List of protocols used by Shodan to scan the internet</string>
+    <string name="title_dns_name">Dns</string>
+    <string name="description_dns">Look up hostnames or IPs</string>
+    <string name="resolve_ip_address">Resolve DNS</string>
+    <string name="reverse_dns">Reverse DNS</string>
 
 </resources>

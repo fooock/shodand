@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
+import com.fooock.app.shodand.model.DnsRow;
+import com.fooock.app.shodand.model.DnsType;
 import com.fooock.app.shodand.model.PopularTagRow;
 import com.fooock.app.shodand.model.ProtocolRow;
 import com.fooock.app.shodand.model.QueriesRow;
@@ -38,7 +40,7 @@ import timber.log.Timber;
  */
 public class ExploreShodanFragment extends BaseFragment implements ExploreView,
         ExploreView.QueryListener, ExploreView.TagListener, ExploreView.ServiceListener,
-        ExploreView.ProtocolListener {
+        ExploreView.ProtocolListener, ExploreView.DnsListener {
 
     @BindView(R.id.pb_loading_content)
     protected ProgressBar progressBar;
@@ -107,9 +109,22 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
         rows.add(createPopularTagRow(tags));
         rows.add(createServicesRow());
         rows.add(createProtocolRow());
+        rows.add(createDnsRow());
 
-        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(rows, this, this, this, this);
+        final ExploreDataAdapter dataAdapter = new ExploreDataAdapter(
+                rows, this, this, this, this, this);
         recyclerView.setAdapter(dataAdapter);
+    }
+
+    /**
+     * Create the row to sho the dns card
+     *
+     * @return dns row
+     */
+    private DnsRow createDnsRow() {
+        final DnsType resolve = new DnsType(0, R.string.resolve_ip_address);
+        final DnsType reverse = new DnsType(0, R.string.reverse_dns);
+        return new DnsRow(Arrays.asList(resolve, reverse));
     }
 
     /**
@@ -196,5 +211,15 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
     @Override
     public void onProtocolSelected() {
         Timber.d("Selected show protocols");
+    }
+
+    @Override
+    public void onResolveDnsSelected() {
+        Timber.d("Resolve dns selected");
+    }
+
+    @Override
+    public void onReverseDnsSelected() {
+        Timber.d("Reverse dns selected");
     }
 }
