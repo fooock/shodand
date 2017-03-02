@@ -16,12 +16,12 @@ import io.reactivex.Observable;
 /**
  *
  */
-public class ShodanDataRepository implements ShodanRepository {
+final class ShodanDataRepository implements ShodanRepository {
 
     private final ShodanRestApi shodanRestApi;
     private final ShodanDataSource dataSource;
 
-    public ShodanDataRepository(ShodanRestApi shodanRestApi, ShodanDataSource dataSource) {
+    ShodanDataRepository(ShodanRestApi shodanRestApi, ShodanDataSource dataSource) {
         this.shodanRestApi = shodanRestApi;
         this.dataSource = dataSource;
     }

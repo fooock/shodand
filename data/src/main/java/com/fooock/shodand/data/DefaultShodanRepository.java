@@ -1,7 +1,6 @@
-package com.fooock.app.shodand.repository;
+package com.fooock.shodand.data;
 
 import com.fooock.shodan.ShodanRestApi;
-import com.fooock.shodand.data.ShodanDataRepository;
 import com.fooock.shodand.data.datasource.ShodanDataSource;
 import com.fooock.shodand.domain.model.TagCount;
 import com.fooock.shodand.domain.model.params.SizeParam;
@@ -23,14 +22,14 @@ public class DefaultShodanRepository implements ShodanRepository {
     /**
      * Create the default shodan data repository
      */
-    public DefaultShodanRepository(ShodanDataRepository shodanDataRepository) {
-        this.shodanDataRepository = shodanDataRepository;
+    private DefaultShodanRepository(ShodanRestApi restApi, ShodanDataSource dataSource) {
+        this.shodanDataRepository = new ShodanDataRepository(restApi, dataSource);
     }
 
     public static synchronized ShodanRepository getInstance(ShodanRestApi restApi,
                                                             ShodanDataSource dataSource) {
         if (shodanRepository == null) {
-            shodanRepository = new ShodanDataRepository(restApi, dataSource);
+            shodanRepository = new DefaultShodanRepository(restApi, dataSource);
         }
         return shodanRepository;
     }

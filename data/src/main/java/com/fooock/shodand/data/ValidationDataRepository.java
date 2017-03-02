@@ -13,11 +13,11 @@ import io.reactivex.Observable;
 /**
  *
  */
-public class ValidationDataRepository implements ValidationRepository {
+final class ValidationDataRepository implements ValidationRepository {
 
     private final AccountDataSource accountDataSource;
 
-    public ValidationDataRepository(AccountDataSource accountDataSource) {
+    ValidationDataRepository(AccountDataSource accountDataSource) {
         this.accountDataSource = accountDataSource;
     }
 

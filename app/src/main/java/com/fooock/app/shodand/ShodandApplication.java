@@ -4,11 +4,11 @@ import android.app.Application;
 
 import com.fooock.app.shodand.executor.DefaultMainThread;
 import com.fooock.app.shodand.executor.DefaultThreadExecutor;
-import com.fooock.app.shodand.repository.DefaultShodanRepository;
-import com.fooock.app.shodand.repository.DefaultValidationRepository;
 import com.fooock.app.shodand.repository.database.DatabaseHelper;
 import com.fooock.app.shodand.repository.datasource.AccountDatabaseDataSource;
 import com.fooock.app.shodand.repository.datasource.ShodanDatabaseDataSource;
+import com.fooock.shodand.data.DefaultShodanRepository;
+import com.fooock.shodand.data.DefaultValidationRepository;
 import com.fooock.shodand.data.ShodanApis;
 import com.fooock.shodand.data.datasource.AccountDataSource;
 import com.fooock.shodand.data.datasource.ShodanDataSource;
