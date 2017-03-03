@@ -23,7 +23,7 @@ ext {
 
     // java libraries versions
     rxJavaVersion = "2.0.6"
-    jshodanVersion = "0.4.5"
+    jshodanVersion = "0.4.6"
 
     appLibraries = [
             supportAppCompat    : "com.android.support:appcompat-v7:${appCompatVersion}",
