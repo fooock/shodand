@@ -305,6 +305,7 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             final LinearLayoutManager layoutManager = new LinearLayoutManager(
                     itemView.getContext());
             rvPopularTags.setLayoutManager(layoutManager);
+            rvPopularTags.setHasFixedSize(true);
             rvPopularTags.addItemDecoration(new DividerItemDecorator(itemView.getContext()));
         }
 

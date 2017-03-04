@@ -45,6 +45,9 @@ public interface ExploreView extends BaseView {
         void onProtocolSelected();
     }
 
+    /**
+     * Click listener for the dns section in explore fragment
+     */
     interface DnsListener {
         void onResolveDnsSelected();
 
