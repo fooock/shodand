@@ -2,7 +2,9 @@ package com.fooock.shodand.data;
 
 import com.fooock.shodan.ShodanRestApi;
 import com.fooock.shodand.data.datasource.ShodanDataSource;
+import com.fooock.shodand.data.mapper.ProtocolMapper;
 import com.fooock.shodand.data.mapper.TagCountMapper;
+import com.fooock.shodand.domain.model.Protocol;
 import com.fooock.shodand.domain.model.TagCount;
 import com.fooock.shodand.domain.model.params.SizeParam;
 import com.fooock.shodand.domain.repository.ShodanRepository;
@@ -45,5 +47,10 @@ final class ShodanDataRepository implements ShodanRepository {
                 });
         return Observable.concat(dbObservable, apiObservable)
                 .firstElement().toObservable();
+    }
+
+    @Override
+    public Observable<List<Protocol>> protocols() {
+        return shodanRestApi.protocols().map(new ProtocolMapper());
     }
 }

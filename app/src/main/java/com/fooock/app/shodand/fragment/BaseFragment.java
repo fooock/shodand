@@ -24,30 +24,6 @@ abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * Hide the action bar
-     */
-    protected void hideActionBar() {
-        ActionBar actionBar = ((AppCompatActivity) getActivity())
-                .getSupportActionBar();
-        if (actionBar == null) {
-            return;
-        }
-        actionBar.hide();
-    }
-
-    /**
-     * Show the action bar
-     */
-    protected void showActionBar() {
-        ActionBar actionBar = ((AppCompatActivity) getActivity())
-                .getSupportActionBar();
-        if (actionBar == null) {
-            return;
-        }
-        actionBar.show();
-    }
-
-    /**
      * Change the title of the activity where this fragment is attached
      *
      * @param title string resource
@@ -56,6 +32,7 @@ abstract class BaseFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity) getActivity())
                 .getSupportActionBar();
         if (actionBar == null) {
+            Timber.d("Action bar is null, not changing title...");
             return;
         }
         actionBar.setTitle(title);

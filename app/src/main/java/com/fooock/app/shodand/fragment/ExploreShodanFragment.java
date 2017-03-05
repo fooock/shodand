@@ -1,5 +1,6 @@
 package com.fooock.app.shodand.fragment;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -211,6 +212,11 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
     @Override
     public void onProtocolSelected() {
         Timber.d("Selected show protocols");
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        ProtocolFragment fragment = new ProtocolFragment();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
