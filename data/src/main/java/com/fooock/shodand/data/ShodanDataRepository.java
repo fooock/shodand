@@ -31,7 +31,7 @@ final class ShodanDataRepository implements ShodanRepository {
 
     @Override
     public Observable<List<TagCount>> tags(SizeParam param) {
-        final Observable<List<TagCount>> dbObservable = dataSource.get()
+        final Observable<List<TagCount>> dbObservable = dataSource.getTags()
                 .filter(new Predicate<List<TagCount>>() {
                     @Override
                     public boolean test(@NonNull List<TagCount> tagCounts) throws Exception {
@@ -42,7 +42,7 @@ final class ShodanDataRepository implements ShodanRepository {
                 .map(new TagCountMapper()).doOnNext(new Consumer<List<TagCount>>() {
                     @Override
                     public void accept(@NonNull final List<TagCount> tagCounts) throws Exception {
-                        dataSource.save(tagCounts);
+                        dataSource.saveTags(tagCounts);
                     }
                 });
         return Observable.concat(dbObservable, apiObservable)
@@ -51,6 +51,20 @@ final class ShodanDataRepository implements ShodanRepository {
 
     @Override
     public Observable<List<Protocol>> protocols() {
-        return shodanRestApi.protocols().map(new ProtocolMapper());
+        final Observable<List<Protocol>> dbObservable = dataSource.getProtocols()
+                .filter(new Predicate<List<Protocol>>() {
+                    @Override
+                    public boolean test(@NonNull List<Protocol> protocols) throws Exception {
+                        return protocols.size() > 0;
+                    }
+                });
+        final Observable<List<Protocol>> apiObservable = shodanRestApi.protocols()
+                .map(new ProtocolMapper()).doOnNext(new Consumer<List<Protocol>>() {
+                    @Override
+                    public void accept(@NonNull List<Protocol> protocols) throws Exception {
+                        dataSource.saveProtocols(protocols);
+                    }
+                });
+        return Observable.concat(dbObservable, apiObservable).firstElement().toObservable();
     }
 }

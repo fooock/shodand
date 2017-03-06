@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.fooock.app.shodand.repository.database.table.AccountTable;
+import com.fooock.app.shodand.repository.database.table.ProtocolTable;
 import com.fooock.app.shodand.repository.database.table.TagTable;
 
 import java.util.concurrent.Callable;
@@ -46,6 +47,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_POPULAR_TAGS = "DROP TABLE IF EXISTS "
             + TagTable.PopularTag.TABLE_NAME;
 
+    private static final String SQL_CREATE_PROTOCOL_TABLE = "CREATE TABLE "
+            + ProtocolTable.Protocol.TABLE_NAME + " ("
+            + ProtocolTable.Protocol._ID + " INTEGER PRIMARY KEY" + COMMA_SEP
+            + ProtocolTable.Protocol.COLUMN_NAME_PROTOCOL_NAME + TEXT_TYPE + COMMA_SEP
+            + ProtocolTable.Protocol.COLUMN_NAME_PROTOCOL_DESC + TEXT_TYPE + ")";
+
+    private static final String SQL_DELETE_PROTOCOLS = "DROP TABLE IF EXISTS "
+            + ProtocolTable.Protocol.TABLE_NAME;
+
     /**
      * Create this object
      *
@@ -60,6 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Timber.d("Creating sqlite database...");
         db.execSQL(SQL_CREATE_ACCOUNT_TABLE);
         db.execSQL(SQL_CREATE_POPULAR_TAGS_TABLE);
+        db.execSQL(SQL_CREATE_PROTOCOL_TABLE);
     }
 
     @Override
@@ -67,6 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Timber.d("Upgrade sqlite database from version %s to %s", oldVersion, newVersion);
         db.execSQL(SQL_DELETE_ACCOUNT_TABLE);
         db.execSQL(SQL_DELETE_POPULAR_TAGS);
+        db.execSQL(SQL_DELETE_PROTOCOLS);
         onCreate(db);
     }
 

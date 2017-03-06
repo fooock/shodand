@@ -5,8 +5,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.fooock.app.shodand.repository.database.DatabaseHelper;
+import com.fooock.app.shodand.repository.database.table.ProtocolTable;
 import com.fooock.app.shodand.repository.database.table.TagTable;
 import com.fooock.shodand.data.datasource.ShodanDataSource;
+import com.fooock.shodand.domain.model.Protocol;
 import com.fooock.shodand.domain.model.TagCount;
 
 import java.util.ArrayList;
@@ -43,8 +45,8 @@ public class ShodanDatabaseDataSource implements ShodanDataSource {
     }
 
     @Override
-    public void save(List<TagCount> tags) {
-        deleteAll();
+    public void saveTags(List<TagCount> tags) {
+        deleteAllTags();
 
         Timber.d("Save %s tags in database", tags.size());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
@@ -57,7 +59,7 @@ public class ShodanDatabaseDataSource implements ShodanDataSource {
     }
 
     @Override
-    public Observable<List<TagCount>> get() {
+    public Observable<List<TagCount>> getTags() {
         Timber.d("Getting popular tags from database");
         return databaseHelper.createObservable(new Callable<List<TagCount>>() {
             @Override
@@ -84,9 +86,56 @@ public class ShodanDatabaseDataSource implements ShodanDataSource {
     }
 
     @Override
-    public void deleteAll() {
+    public void deleteAllTags() {
         Timber.d("Delete tags...");
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         database.delete(TagTable.PopularTag.TABLE_NAME, null, null);
+    }
+
+    @Override
+    public Observable<List<Protocol>> getProtocols() {
+        Timber.d("Getting protocols from database");
+        return databaseHelper.createObservable(new Callable<List<Protocol>>() {
+            @Override
+            public List<Protocol> call() throws Exception {
+                final List<Protocol> protocols = new ArrayList<>();
+                SQLiteDatabase database = databaseHelper.getReadableDatabase();
+                Cursor cursor = database.query(ProtocolTable.Protocol.TABLE_NAME,
+                        null, null, null, null, null, null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        String name = cursor.getString(
+                                cursor.getColumnIndex(ProtocolTable.Protocol.COLUMN_NAME_PROTOCOL_NAME));
+                        String desc = cursor.getString(
+                                cursor.getColumnIndex(ProtocolTable.Protocol.COLUMN_NAME_PROTOCOL_DESC));
+                        final Protocol protocol = new Protocol(name, desc);
+                        protocols.add(protocol);
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                Timber.d("Found %s protocols in database", protocols.size());
+                return protocols;
+            }
+        });
+    }
+
+    @Override
+    public void saveProtocols(List<Protocol> protocols) {
+        deleteAllProtocols();
+        Timber.d("Save %s protocols in database", protocols.size());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        for (Protocol protocol : protocols) {
+            ContentValues values = new ContentValues();
+            values.put(ProtocolTable.Protocol.COLUMN_NAME_PROTOCOL_NAME, protocol.name);
+            values.put(ProtocolTable.Protocol.COLUMN_NAME_PROTOCOL_DESC, protocol.description);
+            database.insert(ProtocolTable.Protocol.TABLE_NAME, null, values);
+        }
+    }
+
+    @Override
+    public void deleteAllProtocols() {
+        Timber.d("Delete all protocols from database");
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        database.delete(ProtocolTable.Protocol.TABLE_NAME, null, null);
     }
 }

@@ -21,6 +21,6 @@ public class SaveTags implements Consumer<List<TagCount>> {
 
     @Override
     public void accept(@NonNull List<TagCount> tagCounts) throws Exception {
-        shodanDataSource.save(tagCounts);
+        shodanDataSource.saveTags(tagCounts);
     }
 }
