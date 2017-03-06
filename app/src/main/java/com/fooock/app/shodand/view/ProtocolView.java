@@ -9,6 +9,10 @@ import java.util.List;
  */
 public interface ProtocolView extends BaseView {
 
+    interface ProtocolClickListener {
+        void onProtocolSelected(Protocol protocol);
+    }
+
     void showLoading();
 
     void hideLoading();

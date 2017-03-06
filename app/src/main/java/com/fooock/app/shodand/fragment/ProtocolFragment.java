@@ -28,7 +28,8 @@ import timber.log.Timber;
 /**
  *
  */
-public class ProtocolFragment extends BaseFragment implements ProtocolView {
+public class ProtocolFragment extends BaseFragment implements ProtocolView,
+        ProtocolView.ProtocolClickListener {
 
     @BindView(R.id.pb_loading_content)
     protected ProgressBar progressBar;
@@ -93,7 +94,7 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvProtocols.setLayoutManager(layoutManager);
         rvProtocols.addItemDecoration(new DividerItemDecorator(getActivity()));
-        ProtocolAdapter adapter = new ProtocolAdapter(protocols);
+        ProtocolAdapter adapter = new ProtocolAdapter(protocols, this);
         rvProtocols.setAdapter(adapter);
     }
 
@@ -106,5 +107,10 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView {
     public void refreshInfo() {
         Timber.d("Click on refresh info");
         protocolPresenter.update();
+    }
+
+    @Override
+    public void onProtocolSelected(Protocol protocol) {
+        Timber.d("Selected protocol %s", protocol.name);
     }
 }

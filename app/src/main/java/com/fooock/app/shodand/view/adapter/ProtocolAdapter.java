@@ -8,23 +8,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fooock.app.shodand.R;
+import com.fooock.app.shodand.view.ProtocolView;
 import com.fooock.shodand.domain.model.Protocol;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  *
  */
 public class ProtocolAdapter extends RecyclerView.Adapter<ProtocolAdapter.Holder> {
 
+    private final ProtocolView.ProtocolClickListener listener;
     private final List<Protocol> protocols;
 
-    public ProtocolAdapter(List<Protocol> protocols) {
+    public ProtocolAdapter(List<Protocol> protocols, ProtocolView.ProtocolClickListener listener) {
         this.protocols = protocols;
+        this.listener = listener;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class ProtocolAdapter extends RecyclerView.Adapter<ProtocolAdapter.Holder
         holder.layoutBase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Timber.d("Selected %s protocol", protocol.name);
+                listener.onProtocolSelected(protocol);
             }
         });
     }
