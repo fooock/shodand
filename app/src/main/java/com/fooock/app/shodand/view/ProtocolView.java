@@ -13,6 +13,14 @@ public interface ProtocolView extends BaseView {
         void onProtocolSelected(Protocol protocol);
     }
 
+    void showDefaultTitle();
+
+    void showCollapsedBottomSheet(Protocol protocol);
+
+    void showExpandedBottomSheet(Protocol protocol);
+
+    void onHideBottomSheet();
+
     void showLoading();
 
     void hideLoading();

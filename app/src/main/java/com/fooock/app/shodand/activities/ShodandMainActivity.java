@@ -3,7 +3,6 @@ package com.fooock.app.shodand.activities;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
@@ -19,7 +17,6 @@ import com.fooock.app.shodand.fragment.ExploreShodanFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import timber.log.Timber;
 
 /**
@@ -33,9 +30,6 @@ public class ShodandMainActivity extends BaseActivity
 
     @BindView(R.id.nav_view)
     protected NavigationView navigationView;
-
-    @BindView(R.id.fab)
-    protected FloatingActionButton actionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,10 +108,5 @@ public class ShodandMainActivity extends BaseActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Timber.d("Navigation item selected [%s]", item.getTitle());
         return false;
-    }
-
-    @OnClick(R.id.fab)
-    public void onClick(View view) {
-        Timber.d("Click on search action button");
     }
 }

@@ -39,6 +39,21 @@ abstract class BaseFragment extends Fragment {
     }
 
     /**
+     * Change the title of the activity where this fragment is attached
+     *
+     * @param title string
+     */
+    protected void setTitle(String title) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity())
+                .getSupportActionBar();
+        if (actionBar == null) {
+            Timber.d("Action bar is null, not changing title...");
+            return;
+        }
+        actionBar.setTitle(title);
+    }
+
+    /**
      * Get the {@link ShodandApplication} class to initialize other components
      *
      * @return Application
