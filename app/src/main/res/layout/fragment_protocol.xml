@@ -45,7 +45,7 @@
             android:background="@android:color/black"
             android:orientation="vertical"
             app:behavior_hideable="true"
-            app:behavior_peekHeight="92dp"
+            app:behavior_peekHeight="@dimen/protocol_bottom_sheet_peek"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
             <TextView
@@ -66,8 +66,16 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:maxLines="2"
+                android:minLines="2"
                 android:ellipsize="end"
                 android:textColor="@android:color/white" />
+
+            <FrameLayout
+                android:id="@+id/layout_bottom_sheet_container"
+                android:background="@android:color/holo_red_dark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_top_sep_components" />
 
         </LinearLayout>
 

@@ -1,5 +1,7 @@
 package com.fooock.app.shodand.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,6 +39,8 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView,
 
     private static final int DESC_MAX_LINES_ON_COLLAPSED = 2;
     private static final int DESC_MAX_LINES_ON_EXPANDED = Integer.MAX_VALUE;
+    private static final int DESC_MIN_LINES_ON_COLLAPSED = DESC_MAX_LINES_ON_COLLAPSED;
+    private static final int DESC_MIN_LINES_ON_EXPANDED = 1;
 
     @BindView(R.id.pb_loading_content)
     protected ProgressBar progressBar;
@@ -54,6 +59,9 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView,
 
     @BindView(R.id.txt_bs_protocol_desc)
     protected TextView txtProtocolDesc;
+
+    @BindView(R.id.layout_bottom_sheet_container)
+    protected FrameLayout fragmentContainer;
 
     private BottomSheetBehavior bottomSheetBehavior;
     private ProtocolPresenter protocolPresenter;
@@ -76,7 +84,7 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView,
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                Timber.d("Bottom sheet slide offset %s", slideOffset);
+                // do nothing
             }
         });
 
@@ -117,9 +125,24 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView,
     void initializeComponents(ShodandApplication application) {
         Timber.d("Initializing components...");
         protocolPresenter = new ProtocolPresenter(
+                application.eventBus(),
                 application.shodanRepository(),
                 application.mainThread(),
                 application.threadExecutor());
+    }
+
+    @Override
+    public void hideWithAnimation() {
+        showDefaultTitle();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheet.animate().translationY(0).alpha(0.0f).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                bottomSheet.setAlpha(1.0f);
+                bottomSheet.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -130,8 +153,11 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView,
     @Override
     public void showCollapsedBottomSheet(Protocol protocol) {
         setTitle(R.string.title_protocols);
+        bottomSheet.setVisibility(View.VISIBLE);
         txtProtocolName.setVisibility(View.VISIBLE);
         txtProtocolDesc.setMaxLines(DESC_MAX_LINES_ON_COLLAPSED);
+        txtProtocolDesc.setMinLines(DESC_MIN_LINES_ON_COLLAPSED);
+        fragmentContainer.setVisibility(View.VISIBLE);
         restoreDefaultPadding();
     }
 
@@ -149,6 +175,7 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView,
         setTitle(protocol.name);
         txtProtocolName.setVisibility(View.GONE);
         txtProtocolDesc.setMaxLines(DESC_MAX_LINES_ON_EXPANDED);
+        txtProtocolDesc.setMinLines(DESC_MIN_LINES_ON_EXPANDED);
         changeDefaultPadding();
     }
 

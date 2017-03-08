@@ -45,6 +45,13 @@ public abstract class ShodandApplication extends Application {
     abstract void initialize();
 
     /**
+     * @return Event bus
+     */
+    public RxBus eventBus() {
+        return RxBus.getInstance();
+    }
+
+    /**
      * @return Navigator
      */
     public Navigator navigator() {

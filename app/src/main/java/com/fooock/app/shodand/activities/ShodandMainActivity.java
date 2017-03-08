@@ -10,10 +10,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.fooock.app.shodand.R;
 import com.fooock.app.shodand.ShodandApplication;
 import com.fooock.app.shodand.fragment.ExploreShodanFragment;
+import com.fooock.app.shodand.presenter.ShodandPresenter;
+import com.fooock.app.shodand.view.MainView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,13 +26,16 @@ import timber.log.Timber;
  *
  */
 public class ShodandMainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainView {
 
     @BindView(R.id.drawer_layout)
     protected DrawerLayout drawerLayout;
 
     @BindView(R.id.nav_view)
     protected NavigationView navigationView;
+
+    private ActionBarDrawerToggle drawerToggle;
+    private ShodandPresenter shodandPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +44,27 @@ public class ShodandMainActivity extends BaseActivity
 
         ButterKnife.bind(this);
 
+        shodandPresenter.attachView(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        drawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHomeInDrawer();
+                shodandPresenter.clickOnNavigationItem();
+            }
+        });
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -61,6 +79,7 @@ public class ShodandMainActivity extends BaseActivity
     @Override
     void initializeComponents(@NonNull ShodandApplication application) {
         Timber.d("Initializing components...");
+        shodandPresenter = new ShodandPresenter(application.eventBus());
 
         final String apiKey = application.preferences().getApiKey();
 
@@ -108,5 +127,23 @@ public class ShodandMainActivity extends BaseActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Timber.d("Navigation item selected [%s]", item.getTitle());
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        shodandPresenter.detachView();
+        super.onDestroy();
+    }
+
+    @Override
+    public void showBackOnDrawer() {
+        Timber.d("Show back in drawer layout...");
+        drawerToggle.setDrawerIndicatorEnabled(false);
+    }
+
+    @Override
+    public void showHomeInDrawer() {
+        Timber.d("Show home in drawer layout...");
+        drawerToggle.setDrawerIndicatorEnabled(true);
     }
 }
