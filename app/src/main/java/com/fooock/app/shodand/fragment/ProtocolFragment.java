@@ -88,6 +88,13 @@ public class ProtocolFragment extends BaseFragment implements ProtocolView,
                         bottomSheetBehavior.getState(), newState);
             }
         });
+
+        bottomSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
         return view;
     }
 
