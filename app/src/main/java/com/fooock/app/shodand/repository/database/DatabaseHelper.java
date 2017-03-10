@@ -20,7 +20,7 @@ import timber.log.Timber;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "shodand.db";
 
     private static final String TEXT_TYPE = " TEXT";

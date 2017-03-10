@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="@dimen/internal_component_padding_row"
     android:background="@drawable/item_row_selected">
 
     <TextView
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
+        android:textSize="@dimen/desc_text_size"
         android:textColor="@drawable/item_text_selected" />
 
 </LinearLayout>

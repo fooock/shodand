@@ -55,8 +55,8 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                android:textSize="18sp"
                 android:maxLines="1"
+                android:textSize="@dimen/title_text_size"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -68,6 +68,7 @@
                 android:maxLines="2"
                 android:minLines="2"
                 android:ellipsize="end"
+                android:textSize="@dimen/desc_text_size"
                 android:textColor="@android:color/white" />
 
             <FrameLayout

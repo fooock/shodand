@@ -8,25 +8,28 @@
 
     <RelativeLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:padding="@dimen/internal_component_padding">
 
         <TextView
             android:id="@+id/title_popular_tags"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="16sp" />
+            android:textSize="@dimen/title_text_size" />
 
         <TextView
             android:id="@+id/txt_popular_tags_description"
             android:layout_below="@id/title_popular_tags"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/desc_text_size" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_popular_tags"
             android:layout_below="@id/txt_popular_tags_description"
             android:layout_height="match_parent"
-            android:layout_width="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/internal_component_margin" />
 
         <TextView
             android:id="@+id/txt_data_not_found"

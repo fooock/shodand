@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:padding="@dimen/internal_component_padding_row"
     android:background="@drawable/item_row_selected">
 
     <ImageView
@@ -15,6 +16,9 @@
         android:id="@+id/txt_dns_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="@dimen/row_upper_text_size"
+        android:textAllCaps="true"
         android:textColor="@drawable/item_text_selected" />
 
 </LinearLayout>

@@ -7,4 +7,10 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="margin_top_sep_components">20dp</dimen>
     <dimen name="protocol_bottom_sheet_peek">92dp</dimen>
+    <dimen name="internal_component_padding">8dp</dimen>
+    <dimen name="internal_component_margin">4dp</dimen>
+    <dimen name="internal_component_padding_row">4dp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="desc_text_size">16sp</dimen>
+    <dimen name="row_upper_text_size">14sp</dimen>
 </resources>

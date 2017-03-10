@@ -9,23 +9,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/internal_component_padding"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/txt_title_redently_shared"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:textSize="@dimen/title_text_size" />
 
         <TextView
             android:id="@+id/txt_description_recently_shared"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/desc_text_size" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_query_types"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/internal_component_margin" />
 
     </LinearLayout>
 

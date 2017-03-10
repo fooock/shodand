@@ -123,8 +123,8 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
      * @return dns row
      */
     private DnsRow createDnsRow() {
-        final DnsType resolve = new DnsType(0, R.string.resolve_ip_address);
-        final DnsType reverse = new DnsType(0, R.string.reverse_dns);
+        final DnsType resolve = new DnsType(R.drawable.ic_resolve, R.string.resolve_ip_address);
+        final DnsType reverse = new DnsType(R.drawable.ic_reverse, R.string.reverse_dns);
         return new DnsRow(Arrays.asList(resolve, reverse));
     }
 
@@ -143,8 +143,8 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
      * @return query row
      */
     private QueriesRow createQueriesRow() {
-        final QueryType queryType = new QueryType(0, R.string.title_list_queries);
-        final QueryType searchQueries = new QueryType(0, R.string.title_search_queries);
+        final QueryType queryType = new QueryType(R.drawable.ic_list_queries, R.string.title_list_queries);
+        final QueryType searchQueries = new QueryType(R.drawable.ic_search_queries, R.string.title_search_queries);
         return new QueriesRow(Arrays.asList(queryType, searchQueries));
     }
 
@@ -164,9 +164,9 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
      * @return service row
      */
     private ServicesRow createServicesRow() {
-        final ServicesType byIp = new ServicesType(0, R.string.title_service_by_ip);
-        final ServicesType summaryInfo = new ServicesType(0, R.string.title_service_summary_info);
-        final ServicesType searchServices = new ServicesType(0, R.string.title_search_service);
+        final ServicesType byIp = new ServicesType(R.drawable.ic_search, R.string.title_service_by_ip);
+        final ServicesType summaryInfo = new ServicesType(R.drawable.ic_info, R.string.title_service_summary_info);
+        final ServicesType searchServices = new ServicesType(R.drawable.ic_services, R.string.title_search_service);
         return new ServicesRow(Arrays.asList(byIp, summaryInfo, searchServices));
     }
 
