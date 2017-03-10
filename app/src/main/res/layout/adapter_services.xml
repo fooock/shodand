@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_service_base"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/height_touchable_element"
     android:orientation="horizontal"
     android:padding="@dimen/internal_component_padding_row"
     android:background="@drawable/item_row_selected">
