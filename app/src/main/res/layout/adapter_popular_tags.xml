@@ -11,6 +11,7 @@
         android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_gravity="center"
         android:textSize="@dimen/desc_text_size"
         android:textColor="@drawable/item_text_selected" />
 
