@@ -18,6 +18,8 @@
         android:id="@+id/rv_explore_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/internal_component_padding"
         android:scrollbars="none" />
 
 </RelativeLayout>

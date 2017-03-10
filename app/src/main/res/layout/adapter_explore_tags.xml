@@ -4,6 +4,7 @@
     android:id="@+id/tags_card_view"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
