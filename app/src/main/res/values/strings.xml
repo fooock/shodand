@@ -43,5 +43,6 @@
     <string name="resolve_ip_address">Resolve DNS</string>
     <string name="reverse_dns">Reverse DNS</string>
     <string name="msg_protocol_not_found">Protocols not found. Touch to refresh info</string>
+    <string name="txt_show_more">Show more...</string>
 
 </resources>

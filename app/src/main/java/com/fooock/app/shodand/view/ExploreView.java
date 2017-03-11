@@ -25,6 +25,8 @@ public interface ExploreView extends BaseView {
      */
     interface TagListener {
         void onTagSelected(@NonNull TagCount tag);
+
+        void onShowMoreTags();
     }
 
     /**

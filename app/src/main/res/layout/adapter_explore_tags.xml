@@ -21,6 +21,7 @@
         <TextView
             android:id="@+id/txt_popular_tags_description"
             android:layout_below="@id/title_popular_tags"
+            android:layout_marginTop="@dimen/internal_component_margin"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textSize="@dimen/desc_text_size" />
@@ -31,6 +32,29 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/internal_component_margin" />
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/divider_line"
+            android:layout_below="@id/rv_popular_tags" />
+
+        <TextView
+            android:id="@+id/txt_show_more_tags"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_touchable_element"
+            android:text="@string/txt_show_more"
+            android:layout_below="@id/view_divider"
+            android:padding="@dimen/internal_component_padding"
+            android:textSize="@dimen/desc_text_size"
+            android:background="@drawable/item_row_selected"
+            android:textColor="@drawable/item_text_selected"
+            android:textAllCaps="true"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
 
         <TextView
             android:id="@+id/txt_data_not_found"

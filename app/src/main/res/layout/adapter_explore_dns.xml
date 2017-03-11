@@ -22,6 +22,7 @@
             android:id="@+id/txt_description_dns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/internal_component_margin"
             android:textSize="@dimen/desc_text_size" />
 
         <android.support.v7.widget.RecyclerView

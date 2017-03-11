@@ -195,6 +195,11 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
     }
 
     @Override
+    public void onShowMoreTags() {
+        Timber.d("Show more tags...");
+    }
+
+    @Override
     public void onSearchByIp() {
         Timber.d("Selected search by ip");
     }

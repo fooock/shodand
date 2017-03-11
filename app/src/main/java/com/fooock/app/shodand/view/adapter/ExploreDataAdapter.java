@@ -296,6 +296,9 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @BindView(R.id.rv_popular_tags)
         RecyclerView rvPopularTags;
 
+        @BindView(R.id.txt_show_more_tags)
+        TextView txtShowMore;
+
         private final ExploreView.TagListener tagListener;
 
         TagHolder(View itemView, ExploreView.TagListener tagListener) {
@@ -318,13 +321,20 @@ public class ExploreDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (tags == null || tags.isEmpty()) {
                 txtTagsNotFound.setVisibility(View.VISIBLE);
                 rvPopularTags.setVisibility(View.GONE);
+                txtShowMore.setVisibility(View.GONE);
                 return;
             }
             txtTagsNotFound.setVisibility(View.GONE);
             rvPopularTags.setVisibility(View.VISIBLE);
+            txtShowMore.setVisibility(View.VISIBLE);
 
             final PopularTagAdapter popularTagAdapter = new PopularTagAdapter(tags, tagListener);
             rvPopularTags.setAdapter(popularTagAdapter);
+        }
+
+        @OnClick(R.id.txt_show_more_tags)
+        public void onShowMoreClick() {
+            tagListener.onShowMoreTags();
         }
     }
 }
