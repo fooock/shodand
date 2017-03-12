@@ -14,4 +14,5 @@
     <dimen name="desc_text_size">16sp</dimen>
     <dimen name="row_upper_text_size">14sp</dimen>
     <dimen name="height_touchable_element">48dp</dimen>
+    <dimen name="margin_horizontal_element">4dp</dimen>
 </resources>

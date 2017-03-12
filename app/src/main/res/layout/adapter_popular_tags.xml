@@ -8,10 +8,14 @@
 
     <TextView
         android:id="@+id/txt_tag_count"
-        android:layout_width="42dp"
+        android:layout_width="52dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
+        android:paddingStart="@dimen/internal_component_padding"
+        android:paddingLeft="@dimen/internal_component_padding"
+        android:paddingEnd="@dimen/internal_component_padding"
+        android:paddingRight="@dimen/internal_component_padding"
         android:textSize="@dimen/desc_text_size"
         android:textColor="@drawable/item_text_selected" />
 

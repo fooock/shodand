@@ -50,4 +50,5 @@ dependencies {
     compile rootProject.ext.appLibraries.rxJavaAndroid
     compile rootProject.ext.appLibraries.recyclerview
     compile rootProject.ext.appLibraries.cardview
+    compile rootProject.ext.appLibraries.chipLayoutManager
 }

@@ -44,5 +44,9 @@
     <string name="reverse_dns">Reverse DNS</string>
     <string name="msg_protocol_not_found">Protocols not found. Touch to refresh info</string>
     <string name="txt_show_more">Show more...</string>
+    <string name="msg_list_queries_not_found">Queries not found. Touch to refresh info</string>
+    <string name="votes">votes</string>
+    <string name="vote">vote</string>
+    <string name="txt_execute_query">Execute</string>
 
 </resources>

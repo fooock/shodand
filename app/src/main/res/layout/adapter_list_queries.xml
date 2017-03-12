@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/internal_component_padding">
+
+        <TextView
+            android:id="@+id/txt_list_query_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="@dimen/txt_title_size" />
+
+        <TextView
+            android:id="@+id/txt_list_query_votes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_list_query_title"
+            android:layout_marginTop="@dimen/internal_component_padding_row"
+            android:textSize="@dimen/row_upper_text_size" />
+
+        <TextView
+            android:id="@+id/txt_query_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/txt_list_query_title"
+            android:layout_marginTop="@dimen/internal_component_padding_row"
+            android:layout_toEndOf="@id/txt_list_query_votes"
+            android:layout_toRightOf="@id/txt_list_query_votes"
+            android:gravity="end"
+            android:textSize="@dimen/row_upper_text_size" />
+
+        <View
+            android:id="@+id/view_divider_votes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_list_query_votes"
+            android:layout_marginBottom="@dimen/internal_component_padding"
+            android:layout_marginTop="@dimen/internal_component_padding"
+            android:background="@drawable/divider_line" />
+
+        <TextView
+            android:id="@+id/txt_list_query_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_divider_votes"
+            android:layout_marginTop="@dimen/internal_component_padding_row"
+            android:textSize="@dimen/desc_text_size" />
+
+        <View
+            android:id="@+id/view_divider_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_list_query_desc"
+            android:layout_marginBottom="@dimen/internal_component_padding"
+            android:layout_marginTop="@dimen/internal_component_padding"
+            android:background="@drawable/divider_line" />
+
+        <TextView
+            android:id="@+id/txt_list_queries_query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_divider_desc"
+            android:textStyle="bold"
+            android:textSize="@dimen/desc_text_size" />
+
+        <View
+            android:id="@+id/view_divider_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_list_queries_query"
+            android:layout_marginBottom="@dimen/internal_component_padding"
+            android:layout_marginTop="@dimen/internal_component_padding"
+            android:background="@drawable/divider_line" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_query_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:clipToPadding="true"
+            android:paddingTop="@dimen/internal_component_padding_row"
+            android:layout_below="@id/view_divider_tags" />
+
+        <View
+            android:id="@+id/view_divider_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_query_tags"
+            android:layout_marginBottom="@dimen/internal_component_padding"
+            android:layout_marginTop="@dimen/internal_component_padding"
+            android:background="@drawable/divider_line" />
+
+        <TextView
+            android:id="@+id/txt_execute_query"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_touchable_element"
+            android:text="@string/txt_execute_query"
+            android:layout_below="@id/view_divider_actions"
+            android:padding="@dimen/internal_component_padding"
+            android:textSize="@dimen/desc_text_size"
+            android:background="@drawable/item_row_selected"
+            android:textColor="@drawable/item_text_selected"
+            android:textAllCaps="true"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

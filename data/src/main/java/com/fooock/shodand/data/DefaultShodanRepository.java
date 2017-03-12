@@ -2,8 +2,10 @@ package com.fooock.shodand.data;
 
 import com.fooock.shodan.ShodanRestApi;
 import com.fooock.shodand.data.datasource.ShodanDataSource;
+import com.fooock.shodand.domain.model.ListQuery;
 import com.fooock.shodand.domain.model.Protocol;
 import com.fooock.shodand.domain.model.TagCount;
+import com.fooock.shodand.domain.model.params.ListQueryParams;
 import com.fooock.shodand.domain.model.params.SizeParam;
 import com.fooock.shodand.domain.repository.ShodanRepository;
 
@@ -43,5 +45,10 @@ public class DefaultShodanRepository implements ShodanRepository {
     @Override
     public Observable<List<Protocol>> protocols() {
         return shodanDataRepository.protocols();
+    }
+
+    @Override
+    public Observable<List<ListQuery>> listQueries(ListQueryParams params) {
+        return shodanDataRepository.listQueries(params);
     }
 }

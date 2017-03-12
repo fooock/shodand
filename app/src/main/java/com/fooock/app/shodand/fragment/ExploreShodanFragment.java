@@ -182,6 +182,11 @@ public class ExploreShodanFragment extends BaseFragment implements ExploreView,
     @Override
     public void onQueryListSelected() {
         Timber.d("Selected list queries");
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        ListQueriesFragment fragment = new ListQueriesFragment();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
