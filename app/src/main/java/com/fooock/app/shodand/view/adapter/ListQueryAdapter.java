@@ -79,6 +79,8 @@ public class ListQueryAdapter extends RecyclerView.Adapter<ListQueryAdapter.Hold
             holder.txtDescription.setVisibility(View.GONE);
             holder.dividerVotes.setVisibility(View.GONE);
         } else {
+            holder.dividerVotes.setVisibility(View.VISIBLE);
+            holder.txtDescription.setVisibility(View.VISIBLE);
             holder.txtDescription.setText(description);
         }
 
