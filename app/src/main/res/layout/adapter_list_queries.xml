@@ -15,6 +15,7 @@
             android:id="@+id/txt_list_query_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/internal_component_padding"
             android:gravity="start"
             android:textSize="@dimen/txt_title_size" />
 
@@ -23,20 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_list_query_title"
+            android:padding="@dimen/internal_component_padding"
             android:layout_marginTop="@dimen/internal_component_padding_row"
-            android:textSize="@dimen/row_upper_text_size" />
-
-        <TextView
-            android:id="@+id/txt_query_timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/txt_list_query_title"
-            android:layout_marginTop="@dimen/internal_component_padding_row"
-            android:layout_toEndOf="@id/txt_list_query_votes"
-            android:layout_toRightOf="@id/txt_list_query_votes"
-            android:gravity="end"
             android:textSize="@dimen/row_upper_text_size" />
 
         <View
@@ -53,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_divider_votes"
+            android:padding="@dimen/internal_component_padding"
             android:layout_marginTop="@dimen/internal_component_padding_row"
             android:textSize="@dimen/desc_text_size" />
 
@@ -70,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_divider_desc"
+            android:padding="@dimen/internal_component_padding"
             android:textStyle="bold"
             android:textSize="@dimen/desc_text_size" />
 
@@ -99,6 +90,18 @@
             android:layout_marginBottom="@dimen/internal_component_padding"
             android:layout_marginTop="@dimen/internal_component_padding"
             android:background="@drawable/divider_line" />
+
+        <TextView
+            android:id="@+id/txt_query_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_touchable_element"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/view_divider_actions"
+            android:padding="@dimen/internal_component_padding"
+            android:gravity="start|center_vertical"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/row_upper_text_size" />
 
         <TextView
             android:id="@+id/txt_execute_query"
