@@ -34,6 +34,12 @@ All modules can be tested separately. Also if you want to create a Java console 
 ## Views
 All views need to implement the [BaseView](https://github.com/fooock/shodand/blob/master/app/src/main/java/com/fooock/app/shodand/view/BaseView.java) interface.
 ```java
+public interface FakeView extends BaseView {
+    ...
+}
+```
+You can use it in ```Fragment``` or ```Activity```
+```java
 public class FakeFragment implements FakeView {
     ...
 }
@@ -60,7 +66,7 @@ public class FakeFragment implements FakeView {
     
     @Override
     public void onDestroy() {
-        exploreShodanPresenter.detachView();
+        presenter.detachView();
         super.onDestroy();
     }
 }
