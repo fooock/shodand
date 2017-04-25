@@ -1,5 +1,5 @@
 # Shodand
-Shodand is a native Android application developed to consume Shodan data. 
+Shodand is a console and native Android application developed to consume Shodan data. 
 It is developed following the principles of MVP architecture. It uses the [jShodan library](https://github.com/fooock/jshodan) (created by me! :smile:) to make the network requests.You can find a complete list of the app dependencies divided by modules in the following file, located at the repository root level:
 ```bash
 buildsystem/libraries.gradle
@@ -28,6 +28,7 @@ The application is divided in three modules:
 * **app**: Contains all views and Android classes. This is the only Android module.
 * **domain**: This module contains all business logic. This is a Java module
 * **data**: Contains all classes and interfaces to transform and retrieve data from different datasources. This is a Java module.
+* **console**: This module contains the Java console application to query Shodan. It uses the domain and data modules.
 
 All modules can be tested separately. Also if you want to create a Java console application, you can reuse the **data** and **domain** modules!
 
