@@ -3,6 +3,7 @@ package com.fooock.app.shodand.presenter;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.RecyclerView;
 
+import com.fooock.app.shodand.RxBus;
 import com.fooock.app.shodand.view.ProtocolView;
 import com.fooock.shodand.domain.model.Protocol;
 
@@ -12,9 +13,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import io.reactivex.Observable;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -24,12 +28,16 @@ public class ProtocolPresenterTest {
     @Mock
     ProtocolView protocolView;
 
+    @Mock
+    RxBus rxBus;
+
     private ProtocolPresenter protocolPresenter;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        protocolPresenter = new ProtocolPresenter(null, null, null);
+        when(rxBus.events()).thenReturn(Observable.<Integer>empty());
+        protocolPresenter = new ProtocolPresenter(rxBus, null, null, null);
         protocolPresenter.attachView(protocolView);
     }
 
