@@ -78,6 +78,7 @@ public class Main {
             public void onError(Throwable e) {
                 System.out.println("[-] Error validating API key: "
                         + e.getMessage());
+                System.exit(0);
             }
 
             @Override
