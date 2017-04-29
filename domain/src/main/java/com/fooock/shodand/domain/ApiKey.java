@@ -14,4 +14,8 @@ public class ApiKey {
     public String getApiKey() {
         return apiKey;
     }
+
+    public boolean valid() {
+        return apiKey != null && !apiKey.isEmpty();
+    }
 }

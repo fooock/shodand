@@ -23,6 +23,12 @@ public class ValidateApiKey extends BaseInteractor<Account, ApiKey> {
 
     @Override
     protected Observable<Account> result(ApiKey params) {
+        if (params == null) {
+            throw new IllegalArgumentException("ApiKey can't be null");
+        }
+        if (!params.valid()) {
+            throw new IllegalStateException("API key can't be null or empty");
+        }
         return validationRepository.firstInit(params);
     }
 }
