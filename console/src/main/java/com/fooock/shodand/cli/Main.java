@@ -5,7 +5,11 @@ import com.fooock.shodand.domain.ApiKey;
 import com.fooock.shodand.domain.interactor.ValidateApiKey;
 import com.fooock.shodand.domain.model.Account;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import io.reactivex.observers.DisposableObserver;
 
@@ -53,6 +57,14 @@ public class Main {
         if (!confFile.exists()) {
             System.out.println("[-] Configuration file [" + file + "] not exists");
             return "";
+        }
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(confFile));
+            return bufferedReader.readLine();
+        } catch (FileNotFoundException e) {
+            System.out.println("[-] Error reading configuration file");
+        } catch (IOException e) {
+            System.out.println("[-] Unexpected error! \n" + e);
         }
         return "";
     }
