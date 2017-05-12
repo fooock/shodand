@@ -2,8 +2,11 @@ package com.fooock.shodand.cli;
 
 import com.fooock.shodand.data.DefaultValidationRepository;
 import com.fooock.shodand.domain.ApiKey;
+import com.fooock.shodand.domain.executor.MainThread;
+import com.fooock.shodand.domain.executor.ThreadExecutor;
 import com.fooock.shodand.domain.interactor.ValidateApiKey;
 import com.fooock.shodand.domain.model.Account;
+import com.fooock.shodand.domain.repository.ValidationRepository;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -74,11 +77,9 @@ public class Main {
      *
      * @param apiKey User Shodan API key
      */
-    private static void validateApiKey(String apiKey) {
-        ValidateApiKey validateApiKey = new ValidateApiKey(
-                DefaultValidationRepository.getInstance(DefaultAccountSource.getInstance()),
-                DefaultMainThread.getInstance(),
-                DefaultThreadExecutor.getInstance());
+    private static void validateApiKey(final String apiKey) {
+        ValidateApiKey validateApiKey = new ValidateApiKey(validationRepository(),
+                mainThread(), threadExecutor());
         System.out.println("[+] Trying to validate API key...");
         validateApiKey.execute(new DisposableObserver<Account>() {
             @Override
@@ -98,6 +99,18 @@ public class Main {
                 System.out.println("[+] Starting application");
             }
         }, new ApiKey(apiKey));
+    }
+
+    private static ThreadExecutor threadExecutor() {
+        return DefaultThreadExecutor.getInstance();
+    }
+
+    private static MainThread mainThread() {
+        return DefaultMainThread.getInstance();
+    }
+
+    private static ValidationRepository validationRepository() {
+        return DefaultValidationRepository.getInstance(DefaultAccountSource.getInstance());
     }
 
     /**
